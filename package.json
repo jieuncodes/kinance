@@ -1,0 +1,15 @@
+{
+  "name": "kinance",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "if-env TYPE=server && (cd server && npm install) || (cd client && npm install)",
+    "server": "node ./server/server.js",
+    "client": "cd client && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jiuencodes",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  }
+}
