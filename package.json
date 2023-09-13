@@ -4,12 +4,18 @@
   "description": "",
   "scripts": {
     "build": "if-env TYPE=server && (cd server && npm install) || (cd client && npm install)",
-    "server": "node ./server/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npx tsx server/src/init.ts",
     "client": "cd client && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "jiuencodes",
   "dependencies": {
     "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "tsx": "^3.12.9",
+    "typescript": "^5.2.2"
   }
 }
