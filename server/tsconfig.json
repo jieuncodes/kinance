@@ -5,6 +5,6 @@
         "outDir": "./dist",
         "rootDir": "./src",
         "esModuleInterop": true,
-        "strict": true
+        "strict": true,
     }
 }
