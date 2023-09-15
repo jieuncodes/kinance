@@ -11,6 +11,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        bannerImg: "url('../public/images/banner.jpeg')",
+      },
       colors: {
         bg: "rgb(14,20,34)",
         border: "hsl(var(--border))",

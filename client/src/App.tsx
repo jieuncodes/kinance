@@ -1,13 +1,15 @@
 import Market from "./components/Market";
-import NavigationMenuBar from "./components/NavigationMenu";
-import { GlobalContainer } from "./styles/globalStyle";
+import NavigationMenuBar from "./components/header/NavigationMenu";
+import { Contents, GlobalStyle } from "./styles/globalStyle";
 
 function App() {
   return (
-    <GlobalContainer>
+    <GlobalStyle>
       <NavigationMenuBar />
-      <Market />
-    </GlobalContainer>
+      <Contents>
+        <Market />
+      </Contents>
+    </GlobalStyle>
   );
 }
 

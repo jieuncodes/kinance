@@ -1,0 +1,21 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,600;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    border: solid;
+    border-width: 0.5px;
+    border-color: skyblue;
+
+}
+
+.cyan-drop-shadow {
+    filter: drop-shadow(0 5px 5px #00b7c3);
+}
+
+.banner-bg {
+    background-image: linear-gradient(rgba(14, 14, 14, 0.9), rgba(255, 255, 255, 0.094)), url(../public/images/banner.jpeg)
+}
