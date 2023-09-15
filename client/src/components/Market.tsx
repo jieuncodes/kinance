@@ -14,21 +14,29 @@ const Market = () => {
     error,
     isLoading,
   } = useQuery<BinanceSymbol[]>("marketData", getMarketData);
-
+  const [selectedMarketIdx, setSelectedMarketIdx] = useState<number>(0);
+  const marketTypes = ["Spot", "Perpetual", "Futures"];
   if (isLoading) {
     return <div>Loading...</div>;
   }
   if (error) {
     return <div>Something went wrong</div>;
   }
-  //TODO: show 10 and add pagination
   return (
     <div>
       <Title>Markets</Title>
       <NavBtns>
-        <RoundBtn>Spot</RoundBtn>
-        <RoundBtn>Perpetual</RoundBtn>
-        <RoundBtn>Futures</RoundBtn>
+        {marketTypes.map((type, index) => (
+          <RoundBtn
+            key={index}
+            onClick={() => setSelectedMarketIdx(index)}
+            className={`${
+              selectedMarketIdx === index && "text-sky-500 border-sky-500"
+            }`}
+          >
+            {type}
+          </RoundBtn>
+        ))}
       </NavBtns>
       <OverviewSlider />
 
