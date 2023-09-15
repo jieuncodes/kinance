@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { getMarketData } from "../services/binanceApi";
 import { useQuery } from "react-query";
 import { BinanceSymbol } from "../types/binance";
+import { OverviewSlider, Title } from "styles/Market";
+import { Button } from "components/ui/Button";
+import { NavBtns, RoundBtn } from "styles/buttons";
+import SearchBar from "./SearchBar";
 
 const Market = () => {
   const {
@@ -19,7 +23,14 @@ const Market = () => {
   //TODO: show 10 and add pagination
   return (
     <div>
-      <h1>Spot Trading Markets</h1>
+      <Title>Markets</Title>
+      <NavBtns>
+        <RoundBtn>Spot</RoundBtn>
+        <RoundBtn>Perpetual</RoundBtn>
+        <RoundBtn>Futures</RoundBtn>
+      </NavBtns>
+      <OverviewSlider />
+      <SearchBar />
       <ul>
         {marketData?.slice(0, 10).map((market, index) => (
           <li key={index}>{market.symbol}</li>

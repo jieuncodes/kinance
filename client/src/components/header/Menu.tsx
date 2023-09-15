@@ -8,7 +8,8 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "components/ui/navigation-menu";
+} from "components/ui/NavigationMenu";
+
 import {
   MarketAnchor,
   MarketBannerDesc,
@@ -81,7 +82,9 @@ function Menu() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <a href="/">
-            <NavigationMenuLink>Visitor log</NavigationMenuLink>
+            <NavigationMenuLink className="text-sm pl-3">
+              Visitor log
+            </NavigationMenuLink>
           </a>
         </NavigationMenuItem>
       </NavigationMenuList>

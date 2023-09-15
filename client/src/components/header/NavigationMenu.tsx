@@ -5,7 +5,7 @@ import NavBtns from "./NavBtns";
 
 function NavigationMenuBar() {
   return (
-    <NavigationMenu className="grid grid-cols-[1fr_10fr_3fr] items-center px-6 ">
+    <NavigationMenu className="grid grid-cols-[1fr_10fr_3fr] items-center px-6 py-3">
       <Logo />
       <Menu />
       <NavBtns />

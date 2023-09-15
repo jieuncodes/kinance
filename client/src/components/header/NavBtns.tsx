@@ -1,5 +1,5 @@
 import { Icons } from "components/Icons";
-import { Button } from "ui/Button";
+import { Button } from "components/ui/Button";
 
 function NavBtns() {
   return (
