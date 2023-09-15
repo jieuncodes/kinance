@@ -3,9 +3,10 @@ import { getMarketData } from "../services/binanceApi";
 import { useQuery } from "react-query";
 import { BinanceSymbol } from "../types/binance";
 import { OverviewSlider, Title } from "styles/Market";
-import { Button } from "components/ui/Button";
 import { NavBtns, RoundBtn } from "styles/buttons";
 import SearchBar from "./SearchBar";
+import CryptoTable from "./CryptoTable";
+import TableNav from "./TableNav";
 
 const Market = () => {
   const {
@@ -30,7 +31,8 @@ const Market = () => {
         <RoundBtn>Futures</RoundBtn>
       </NavBtns>
       <OverviewSlider />
-      <SearchBar />
+
+      <CryptoTable />
       <ul>
         {marketData?.slice(0, 10).map((market, index) => (
           <li key={index}>{market.symbol}</li>
