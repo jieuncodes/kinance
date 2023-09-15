@@ -9,8 +9,17 @@
         "baseUrl": "./src",
         "paths": {
             "@/*": [
-                "./*"
+                "./src/*"
             ],
+            "@/lib/*": [
+                "./src/lib/*"
+            ],
+            "@/types": [
+                "./src/types/*"
+            ],
+            "@/ui": [
+                "./src/ui/*"
+            ]
         },
         "allowJs": true,
         "skipLibCheck": true,
@@ -31,6 +40,11 @@
         "node"
     ],
     "include": [
-        "src"
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }
