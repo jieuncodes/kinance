@@ -4,27 +4,23 @@ import { forwardRef } from "react";
 
 export const ListItem = forwardRef<
   React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  Omit<React.ComponentPropsWithoutRef<"a">, "onSelect">
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
       <NavigationMenuLink
+        key={0}
         asChild
-        className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-blue-400 to-blue-600"
+        className={cn(
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors focus:bg-accent focus:text-accent-foreground hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-blue-950 to-blue-500 ",
+          className
+        )}
+        {...props}
       >
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none ">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug  text-white/70">
-            {children}
-          </p>
-        </a>
+        <div>
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug ">{children}</p>
+        </div>
       </NavigationMenuLink>
     </li>
   );

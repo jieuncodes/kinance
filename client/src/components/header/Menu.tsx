@@ -52,13 +52,17 @@ function Menu() {
                   </MarketAnchor>
                 </NavigationMenuLink>
               </MarketMenuBanner>
-              <ListItem href="/" title="By Market Cap">
+              <ListItem key="cap" href="/" title="By Market Cap">
                 The global cryptocurrency market cap today is $1.1 Trillion.
               </ListItem>
-              <ListItem href="/" title="New Crypto Currencies">
+              <ListItem key="new" href="/" title="New Crypto Currencies">
                 Discover new cryptocurrencies that were recently added.
               </ListItem>
-              <ListItem href="/" title="Gainers and Losers">
+              <ListItem
+                key="gainers-losers"
+                href="/"
+                title="Gainers and Losers"
+              >
                 Discover the largest gainers and losers.
               </ListItem>
             </MarketMenuUl>
@@ -81,11 +85,9 @@ function Menu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href="/">
-            <NavigationMenuLink className="text-sm pl-3">
-              Visitor log
-            </NavigationMenuLink>
-          </a>
+          <NavigationMenuLink className="text-sm pl-3">
+            Visitor log
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

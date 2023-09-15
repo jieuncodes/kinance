@@ -5,12 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
+* {
     border: solid;
     border-width: 0.5px;
     border-color: skyblue;
 
-} */
+}
 
 .cyan-drop-shadow {
     filter: drop-shadow(0 5px 5px #00b7c3);
@@ -18,4 +18,20 @@
 
 .banner-bg {
     background-image: linear-gradient(rgba(14, 14, 14, 0.9), rgba(89, 89, 89, 0.382)), url(../public/images/banner.jpeg)
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #101869 0%, #2db9f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-stroke {
+    text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+
+}
+
+.text-stroke-black {
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+
 }

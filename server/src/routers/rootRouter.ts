@@ -1,8 +1,8 @@
 import express from "express";
-import { home } from "../controllers/globalControllers";
+import { getMarketData, home } from "../controllers/globalControllers";
 
-const rootRouter = express.Router();
+const router = express.Router();
 
-rootRouter.get("/", home);
+router.get("/market-data", getMarketData);
 
-export default rootRouter;
+export default router;

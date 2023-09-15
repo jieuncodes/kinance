@@ -6,9 +6,9 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-app.use(cors({ origin: `http://localhost:${PORT}` }));
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", rootRouter);
+app.use("/api", rootRouter);
 
 export default app;

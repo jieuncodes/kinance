@@ -41,7 +41,7 @@ export interface MarketData {
     };
   };
 }
-export type endpoint = {
+export type Endpoint = {
   latest: string;
   historical: string;
   info: string;
@@ -51,7 +51,7 @@ export type endpoint = {
   "most-visited": string;
   "gainers-losers": string;
 };
-export type requireInfo = {
+export type RequireInfo = {
   listings: string;
   metadata: string;
   quotes: string;

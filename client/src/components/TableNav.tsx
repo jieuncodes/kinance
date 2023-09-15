@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { TableNavLi, TableNavUl } from "styles/table";
 
 function TableNav() {
@@ -9,7 +9,7 @@ function TableNav() {
     activeIdx === selectedIdx ? (
       <TableNavLi
         layoutId="bottomLine"
-        className="absolute mt-8 border-t-2 border-sky-400 border-b-0 box-border text-transparent"
+        className="absolute mt- border-t-2 border-sky-400 border-b-0 box-border text-transparent"
       >
         {marketTickers[selectedIdx]}
       </TableNavLi>
@@ -18,7 +18,7 @@ function TableNav() {
   return (
     <TableNavUl>
       {marketTickers.map((item, index) => (
-        <>
+        <Fragment key={index}>
           <TableNavLi
             onClick={() => setActiveIdx(index)}
             className={`${index === activeIdx && "text-white"}`}
@@ -26,7 +26,7 @@ function TableNav() {
             {item}
             {renderBottomLine({ selectedIdx: index })}
           </TableNavLi>
-        </>
+        </Fragment>
       ))}
     </TableNavUl>
   );
