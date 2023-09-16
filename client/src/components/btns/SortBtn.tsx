@@ -2,26 +2,20 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { Icons } from "../Icons";
 
 interface SortedBtnProps {
-  isNameAscending?: boolean | null;
-  setIsNameAscending: Dispatch<SetStateAction<boolean | null>>;
+  isAscending?: boolean | null;
+  setIsAscending: Dispatch<SetStateAction<boolean | null>>;
 }
 
-function SortBtn({
-  isNameAscending = null,
-  setIsNameAscending,
-}: SortedBtnProps) {
+function SortBtn({ isAscending = null, setIsAscending }: SortedBtnProps) {
   return (
     <div
-      onClick={() => setIsNameAscending(!isNameAscending)}
+      onClick={() => setIsAscending(!isAscending)}
       className="w-fit flex flex-col items-center space-y-[-1rem] mt-[1px]"
     >
-      <Icons.triangle
-        className=" w-2 "
-        fill={isNameAscending ? "none" : "white"}
-      />
+      <Icons.triangle className=" w-2 " fill={isAscending ? "none" : "white"} />
       <Icons.triangle
         className="w-2 rotate-180 items-start"
-        fill={isNameAscending ? "white" : "none"}
+        fill={isAscending ? "white" : "none"}
       />
     </div>
   );

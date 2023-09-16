@@ -1,15 +1,15 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import Market from "../src/components/Market";
-import * as binanceApi from "../src/services/binanceApi";
+import * as CMCApi from "../src/services/apiService";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-jest.mock("../src/services/binanceApi");
+jest.mock("../src/services/apiService");
 
 test("renders Spot Trading Markets", async () => {
   const mockData = [{ symbol: "ETHBTC" }, { symbol: "LTCBTC" }];
 
-  (binanceApi.getCoinInfo as jest.Mock).mockResolvedValue(mockData);
+  (CMCApi.fetchMarket as jest.Mock).mockResolvedValue(mockData);
 
   const queryClient = new QueryClient();
 

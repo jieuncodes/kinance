@@ -4,6 +4,15 @@
 Write initial test code that is expected not to pass.
 Develop code that will pass the test.
 Refactor the resulting code
+
+## Game Plan
+-[ ] Sortable table
+
+
+
+
+
+
 ```
 kinance
 │  ├─ src

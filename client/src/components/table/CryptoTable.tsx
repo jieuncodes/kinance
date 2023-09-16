@@ -12,35 +12,22 @@ import { useQuery } from "react-query";
 import { fetchMarket } from "services/apiService";
 import CoinRow from "./CoinRow";
 import { CoinInfo } from "types/marketTypes";
-import SortBtn from "components/btns/SortBtn";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import SortableTableHead from "./SortableTableHead";
 
 function CryptoTable() {
   const {
-    data: CoinInfo,
+    data: marketData,
     error,
     isLoading,
   } = useQuery<CoinInfo[]>("CoinInfo", fetchMarket);
 
-  const [isNameAscending, setIsNameAscending] = useState<boolean | null>(null);
+  const [sortedCoinInfo, setSortedCoinInfo] = useState<CoinInfo[] | null>(null);
 
-  const sortedCoinInfo = useMemo(() => {
-    if (isNameAscending === null) return CoinInfo;
-
-    if (CoinInfo) {
-      return [...CoinInfo].sort((a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-
-        if (isNameAscending) {
-          return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
-        } else {
-          return nameA > nameB ? -1 : nameA < nameB ? 1 : 0;
-        }
-      });
-    }
-    return CoinInfo;
-  }, [CoinInfo, isNameAscending]);
+  useEffect(() => {
+    if (!marketData) return;
+    setSortedCoinInfo(marketData);
+  }, [marketData]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -60,13 +47,11 @@ function CryptoTable() {
           <TableRow className="bg-transparent hover:bg-transparent">
             <TableHead></TableHead>
             <TableHead>Rank</TableHead>
-            <TableHead className="flex flex-row items-center gap-2">
-              <span>Name</span>
-              <SortBtn
-                isNameAscending={isNameAscending}
-                setIsNameAscending={setIsNameAscending}
-              />
-            </TableHead>
+            <SortableTableHead
+              colName={"Name"}
+              marketData={marketData}
+              setSortedData={setSortedCoinInfo}
+            />
             <TableHead>Price</TableHead>
             <TableHead className="text-center">1h %</TableHead>
             <TableHead className="text-center">24h %</TableHead>
@@ -78,7 +63,7 @@ function CryptoTable() {
         </TableHeader>
         <TableBody>
           {sortedCoinInfo?.map((coin, index) => (
-            <CoinRow coin={coin} key={index} />
+            <CoinRow coin={coin} key={coin.id} />
           ))}
         </TableBody>
       </Table>
