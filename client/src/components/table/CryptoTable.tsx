@@ -13,6 +13,7 @@ import { fetchMarket } from "services/apiService";
 import CoinRow from "./CoinRow";
 import { CoinInfo } from "types/marketTypes";
 import SortBtn from "components/btns/SortBtn";
+import { useMemo, useState } from "react";
 
 function CryptoTable() {
   const {
@@ -20,6 +21,26 @@ function CryptoTable() {
     error,
     isLoading,
   } = useQuery<CoinInfo[]>("CoinInfo", fetchMarket);
+
+  const [isNameAscending, setIsNameAscending] = useState<boolean | null>(null);
+
+  const sortedCoinInfo = useMemo(() => {
+    if (isNameAscending === null) return CoinInfo;
+
+    if (CoinInfo) {
+      return [...CoinInfo].sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+
+        if (isNameAscending) {
+          return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+        } else {
+          return nameA > nameB ? -1 : nameA < nameB ? 1 : 0;
+        }
+      });
+    }
+    return CoinInfo;
+  }, [CoinInfo, isNameAscending]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -41,7 +62,10 @@ function CryptoTable() {
             <TableHead>Rank</TableHead>
             <TableHead className="flex flex-row items-center gap-2">
               <span>Name</span>
-              <SortBtn initAscendingState={true} />
+              <SortBtn
+                isNameAscending={isNameAscending}
+                setIsNameAscending={setIsNameAscending}
+              />
             </TableHead>
             <TableHead>Price</TableHead>
             <TableHead className="text-center">1h %</TableHead>
@@ -53,7 +77,7 @@ function CryptoTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {CoinInfo?.map((coin, index) => (
+          {sortedCoinInfo?.map((coin, index) => (
             <CoinRow coin={coin} key={index} />
           ))}
         </TableBody>

@@ -1,20 +1,8 @@
 import { Icons } from "components/Icons";
 import { TableCell, TableRow } from "../ui/Table";
-import { formatPercentage, getPercentageColor } from "util/helpers";
-import { CoinInfo } from "types/marketTypes";
 
-function getTableCellWithPercentage(percentage?: number) {
-  return (
-    <TableCell
-      className="text-center"
-      style={{
-        color: getPercentageColor(Number(percentage)),
-      }}
-    >
-      {formatPercentage(Number(percentage))}
-    </TableCell>
-  );
-}
+import { CoinInfo } from "types/marketTypes";
+import { FormattedPercentage } from "components/nums/FormattedPercentage";
 
 function CoinRow({ coin }: { coin: CoinInfo }) {
   return (
@@ -38,9 +26,16 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
           currency: "USD",
         })}
       </TableCell>
-      {getTableCellWithPercentage(coin.quote.USD?.percent_change_1h)}
-      {getTableCellWithPercentage(coin.quote.USD?.percent_change_24h)}
-      {getTableCellWithPercentage(coin.quote.USD?.percent_change_7d)}
+      <TableCell>
+        {FormattedPercentage(coin.quote.USD?.percent_change_1h)}
+      </TableCell>
+      <TableCell>
+        {FormattedPercentage(coin.quote.USD?.percent_change_24h)}
+      </TableCell>
+      <TableCell>
+        {FormattedPercentage(coin.quote.USD?.percent_change_7d)}
+      </TableCell>
+
       <TableCell>
         {coin.quote.USD?.market_cap?.toLocaleString("en-US", {
           style: "currency",

@@ -19,7 +19,9 @@ export const ListItem = forwardRef<
       >
         <div>
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug ">{children}</p>
+          <p className="line-clamp-2 text-sm leading-snug opacity-50">
+            {children}
+          </p>
         </div>
       </NavigationMenuLink>
     </li>
