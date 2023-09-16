@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MarketData } from "../../../server/src/type/marketTypes";
 
-export const fetchMarketData = async (): Promise<MarketData> => {
+export const fetchMarketData = async (): Promise<MarketData[]> => {
   try {
     const requireInfo = "latest";
     const endpoint = "listings";

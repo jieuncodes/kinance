@@ -40,6 +40,7 @@ import {
   Moon,
   Globe,
   Rocket,
+  Star,
 } from "lucide-react";
 
 export const Icons = {
@@ -82,4 +83,5 @@ export const Icons = {
   gaugeCircle: Gauge,
   layoutDashboard: LayoutDashboard,
   rocket: Rocket,
+  star: Star,
 };

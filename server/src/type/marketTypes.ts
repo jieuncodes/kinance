@@ -15,32 +15,24 @@ export interface MarketData {
   self_reported_market_cap: null;
 
   quote: {
-    USD: {
-      price: number;
-      volume_24h: number;
-      volume_change_24h: number;
-      percent_change_1h: number;
-      percent_change_24h: number;
-      percent_change_7d: number;
-      market_cap: number;
-      market_cap_dominance: number;
-      fully_diluted_market_cap: number;
-      last_updated: string;
-    };
-    BTC: {
-      price: number;
-      volume_24h: number;
-      volume_change_24h: number;
-      percent_change_1h: number;
-      percent_change_24h: number;
-      percent_change_7d: number;
-      market_cap: number;
-      market_cap_dominance: number;
-      fully_diluted_market_cap: number;
-      last_updated: string;
-    };
+    USD?: QuoteCurrency;
+    BTC?: QuoteCurrency;
   };
 }
+
+interface QuoteCurrency {
+  price: number;
+  volume_24h: number;
+  volume_change_24h: number;
+  percent_change_1h: number;
+  percent_change_24h: number;
+  percent_change_7d: number;
+  market_cap: number;
+  market_cap_dominance: number;
+  fully_diluted_market_cap: number;
+  last_updated: string;
+}
+
 export type ReqInfo =
   | "latest"
   | "historical"
