@@ -41,6 +41,7 @@ import {
   Globe,
   Rocket,
   Star,
+  Triangle,
 } from "lucide-react";
 
 export const Icons = {
@@ -84,4 +85,5 @@ export const Icons = {
   layoutDashboard: LayoutDashboard,
   rocket: Rocket,
   star: Star,
+  triangle: Triangle,
 };

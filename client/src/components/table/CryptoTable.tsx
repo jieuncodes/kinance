@@ -4,18 +4,15 @@ import TableNav from "./TableNav";
 import {
   Table,
   TableBody,
-  TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "../ui/Table";
 import { useQuery } from "react-query";
 import { fetchMarket } from "services/apiService";
-import { formatPercentage, getPercentageColor } from "../../util/helpers";
-import { Icons } from "components/Icons";
 import CoinRow from "./CoinRow";
 import { CoinInfo } from "types/marketTypes";
+import SortBtn from "components/btns/SortBtn";
 
 function CryptoTable() {
   const {
@@ -42,7 +39,10 @@ function CryptoTable() {
           <TableRow className="bg-transparent hover:bg-transparent">
             <TableHead></TableHead>
             <TableHead>Rank</TableHead>
-            <TableHead>Name</TableHead>
+            <TableHead className="flex flex-row items-center gap-2">
+              <span>Name</span>
+              <SortBtn initAscendingState={true} />
+            </TableHead>
             <TableHead>Price</TableHead>
             <TableHead className="text-center">1h %</TableHead>
             <TableHead className="text-center">24h %</TableHead>
@@ -62,12 +62,3 @@ function CryptoTable() {
   );
 }
 export default CryptoTable;
-
-const coins = [
-  {
-    invoice: "INV001",
-    paymentStatus: "Paid",
-    totalAmount: "$250.00",
-    paymentMethod: "Credit Card",
-  },
-];
