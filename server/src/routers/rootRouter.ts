@@ -1,8 +1,8 @@
 import express from "express";
-import { getMarketData, home } from "../controllers/globalControllers";
+import { getCoinInfo, home } from "../controllers/globalControllers";
 
 const rootRouter = express.Router();
 
-rootRouter.get("/market-data", getMarketData);
+rootRouter.get("/market-data", getCoinInfo);
 
 export default rootRouter;

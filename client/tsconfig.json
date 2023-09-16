@@ -19,7 +19,7 @@
             ],
             "@/ui": [
                 "./src/ui/*"
-            ]
+            ],
         },
         "allowJs": true,
         "skipLibCheck": true,

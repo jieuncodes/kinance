@@ -9,7 +9,7 @@ function TableNav() {
     activeIdx === selectedIdx ? (
       <TableNavLi
         layoutId="bottomLine"
-        className="absolute mt- border-t-2 border-sky-400 border-b-0 box-border text-transparent"
+        className="absolute mt-8 border-t-2 border-sky-400 border-b-0 box-border text-transparent"
       >
         {marketTickers[selectedIdx]}
       </TableNavLi>

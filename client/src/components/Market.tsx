@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
 import { OverviewSlider, Title } from "styles/Market";
 import { NavBtns, RoundBtn } from "styles/buttons";
-import CryptoTable from "./CryptoTable";
-import { fetchMarketData } from "services/apiService";
-import { MarketData } from "../../../server/src/type/marketTypes";
+import CryptoTable from "./table/CryptoTable";
 
 const Market = () => {
   const [selectedMarketIdx, setSelectedMarketIdx] = useState<number>(0);

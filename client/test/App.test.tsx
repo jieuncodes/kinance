@@ -9,7 +9,7 @@ jest.mock("../src/services/binanceApi");
 test("renders Spot Trading Markets", async () => {
   const mockData = [{ symbol: "ETHBTC" }, { symbol: "LTCBTC" }];
 
-  (binanceApi.getMarketData as jest.Mock).mockResolvedValue(mockData);
+  (binanceApi.getCoinInfo as jest.Mock).mockResolvedValue(mockData);
 
   const queryClient = new QueryClient();
 

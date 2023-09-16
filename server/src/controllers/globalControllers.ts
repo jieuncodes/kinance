@@ -7,7 +7,7 @@ export const home = (req: Request, res: Response): void => {
   res.send("Hello");
 };
 
-export const getMarketData = async (
+export const getCoinInfo = async (
   req: Request,
   res: Response
 ): Promise<void> => {
