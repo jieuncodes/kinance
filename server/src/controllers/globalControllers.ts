@@ -21,10 +21,7 @@ export const getCoinInfo = async (
     if (!endpoint || !requireInfo) {
       throw new Error("Endpoint or RequireInfo is not specified");
     }
-    console.log(
-      "url",
-      `${process.env.CMC_END_POINT!}/${endpoint}/${requireInfo}`
-    );
+
     const response = await axios.get(
       `${process.env.CMC_END_POINT!}/${endpoint}/${requireInfo}`,
       {

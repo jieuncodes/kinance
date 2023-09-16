@@ -21,7 +21,7 @@ function CryptoTable() {
     error,
     isLoading,
   } = useQuery<CoinInfo[]>("CoinInfo", fetchMarket);
-
+  console.log("marketData", marketData);
   const [sortedCoinInfo, setSortedCoinInfo] = useState<CoinInfo[] | null>(null);
 
   useEffect(() => {
