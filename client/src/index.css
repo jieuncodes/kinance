@@ -5,12 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
     border: solid;
     border-width: 0.5px;
     border-color: skyblue;
 
-}
+} */
 
 .cyan-drop-shadow {
     filter: drop-shadow(0 5px 5px #00b7c3);

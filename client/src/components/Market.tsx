@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { BinanceSymbol } from "../types/binance";
 import { OverviewSlider, Title } from "styles/Market";
 import { NavBtns, RoundBtn } from "styles/buttons";
 import CryptoTable from "./CryptoTable";

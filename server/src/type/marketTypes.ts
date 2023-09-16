@@ -41,24 +41,23 @@ export interface MarketData {
     };
   };
 }
-export type Endpoint = {
-  latest: string;
-  historical: string;
-  info: string;
-  convert: string;
-  map: string;
-  search: string;
-  "most-visited": string;
-  "gainers-losers": string;
-};
-export type RequireInfo = {
-  listings: string;
-  metadata: string;
-  quotes: string;
-  "market-pairs": string;
-  airdrops: string;
-  trending: string;
-  ohlcv: string;
-  cateogries: string;
-  "price-performance-stats": string;
-};
+export type ReqInfo =
+  | "latest"
+  | "historical"
+  | "info"
+  | "convert"
+  | "map"
+  | "search"
+  | "most-visited"
+  | "gainers-losers";
+
+export type Endpoint =
+  | "listings"
+  | "metadata"
+  | "quotes"
+  | "market-pairs"
+  | "airdrops"
+  | "trending"
+  | "ohlcv"
+  | "cateogries"
+  | "price-performance-stats";
