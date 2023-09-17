@@ -4,7 +4,7 @@ function ErrorPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex w-full h-96 justify-center items-center flex-col ">
+    <div className="flex w-full h-[500px] justify-center items-center flex-col ">
       <img src="/images/alien.webp" alt="lost alien" className="w-24" />
       <span className="mt-12">Something went wrong.</span>
       <span

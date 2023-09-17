@@ -15,7 +15,7 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
   ];
 
   return (
-    <TableRow onClick={() => navigate(`/coin/${coin.id}`)}>
+    <TableRow onClick={() => navigate(`/coin/${coin.name.toLowerCase()}`)}>
       <TableCell>
         <Icons.star />
       </TableCell>

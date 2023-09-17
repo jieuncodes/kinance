@@ -12,7 +12,7 @@ export const ListItem = forwardRef<
         key={0}
         asChild
         className={cn(
-          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors focus:bg-accent focus:text-accent-foreground hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-blue-950 to-blue-500 ",
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors focus:bg-accent focus:text-accent-foreground hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r from-blue-500 to-blue-50 ",
           className
         )}
         {...props}
