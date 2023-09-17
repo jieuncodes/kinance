@@ -1,6 +1,6 @@
 import SortBtn from "components/btns/SortBtn";
 import { TableHead } from "components/ui/Table";
-import { cn, sortData } from "lib/utils";
+import { sortData } from "lib/utils";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { CoinInfo } from "types/marketTypes";
 

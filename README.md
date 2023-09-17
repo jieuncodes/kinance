@@ -49,7 +49,7 @@ kinance
    │  │  └─ globalControllers.ts
    │  ├─ init.ts
    │  ├─ routers
-   │  │  └─ rootRouter.ts
+   │  │  └─ apiRouter.ts
    │  └─ server.ts
 
 ```

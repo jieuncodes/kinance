@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "react-query";
 import App from "./App";
 import "./index.css";
+import Providers from "Providers";
 
 const rootElement = document.getElementById("root");
-const queryClient = new QueryClient();
 
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
+      <Providers>
         <App />
-      </QueryClientProvider>
+      </Providers>
     </React.StrictMode>
   );
 } else {

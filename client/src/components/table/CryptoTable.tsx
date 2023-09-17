@@ -44,7 +44,7 @@ function CryptoTable() {
       <Table>
         <TableHeader>
           <TableRow className="bg-transparent hover:bg-transparent">
-            <TableHead></TableHead>
+            <TableHead>{""}</TableHead>
             <TableHead>Rank</TableHead>
             {[
               ["Name", "name"],

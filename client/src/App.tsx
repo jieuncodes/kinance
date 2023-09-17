@@ -1,15 +1,18 @@
-import Market from "./components/Market";
+import Market from "components/Market";
+import { Route, Routes } from "react-router-dom";
 import NavigationMenuBar from "./components/header/NavigationMenu";
-import { Contents, GlobalStyle } from "./styles/globalStyle";
+import { AppContainer } from "./styles/globalStyle";
 
 function App() {
   return (
-    <GlobalStyle>
-      <NavigationMenuBar />
-      <Contents>
-        <Market />
-      </Contents>
-    </GlobalStyle>
+    <AppContainer>
+      <Routes>
+        <Route path="/" element={<NavigationMenuBar />}>
+          <Route path="/" element={<Market />} />
+          {/* <Route path="/coin/:id" element={<CoinPage />} /> */}
+        </Route>
+      </Routes>{" "}
+    </AppContainer>
   );
 }
 

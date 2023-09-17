@@ -36,3 +36,9 @@ export const getCoinInfo = async (
     res.status(500).send("Internal Server Error");
   }
 };
+
+export const coinPage = (req: Request, res: Response): void => {
+  const { id } = req.params;
+  console.log("###", id);
+  res.send(`Coin Page ${id}`);
+};

@@ -2,13 +2,14 @@ import { useState } from "react";
 import { OverviewSlider, Title } from "styles/Market";
 import { NavBtns, RoundBtn } from "styles/buttons";
 import CryptoTable from "./table/CryptoTable";
+import { Contents } from "styles/globalStyle";
 
 const Market = () => {
   const [selectedMarketIdx, setSelectedMarketIdx] = useState<number>(0);
   const marketTypes = ["Spot", "Perpetual", "Futures"];
 
   return (
-    <div>
+    <Contents>
       <Title>Markets</Title>
       <NavBtns>
         {marketTypes.map((type, index) => (
@@ -26,7 +27,7 @@ const Market = () => {
       <OverviewSlider />
 
       <CryptoTable />
-    </div>
+    </Contents>
   );
 };
 
