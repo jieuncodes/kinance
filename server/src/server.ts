@@ -1,6 +1,7 @@
 import express from "express";
 import apiRouter from "./routers/apiRouter";
 import cors from "cors";
+import coinRouter from "./routers/coinRouter";
 
 const PORT = process.env.PORT || 8080;
 
