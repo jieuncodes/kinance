@@ -59,3 +59,9 @@ export const sortData = ({
     return compareValues(valueA, valueB, isAscending);
   });
 };
+
+export const FormattedCurrency = (value: number | undefined) =>
+  value?.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  }) || null;

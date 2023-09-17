@@ -1,63 +1,44 @@
 import { Icons } from "components/Icons";
+import CoinLogo from "components/coin/CoinLogo";
+import { FormattedPercentage } from "components/nums/FormattedPercentage";
+import { FormattedCurrency } from "lib/utils";
+import { useNavigate } from "react-router-dom";
+import { CoinInfo } from "types/marketTypes";
 import { TableCell, TableRow } from "../ui/Table";
 
-import { CoinInfo } from "types/marketTypes";
-import { FormattedPercentage } from "components/nums/FormattedPercentage";
-
 function CoinRow({ coin }: { coin: CoinInfo }) {
+  const navigate = useNavigate();
+  const percentChanges = [
+    coin.quote.USD?.percent_change_1h,
+    coin.quote.USD?.percent_change_24h,
+    coin.quote.USD?.percent_change_7d,
+  ];
   return (
-    <TableRow>
+    <TableRow onClick={() => navigate(`/coin/${coin.id}`)}>
       <TableCell>
         <Icons.star />
       </TableCell>
       <TableCell className="text-center">{coin.cmc_rank}</TableCell>
       <TableCell className="flex flex-row items-center content-center">
-        <img
-          src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`}
-          alt="logo"
-          className="w-6 h-6 mr-2 mt-2"
-        />
+        <CoinLogo coinId={coin.id} />
+
         <span className="mt-2 ml-1"> {coin.name}</span>
         <span className="mt-2 ml-2 opacity-50"> {coin.symbol}</span>
       </TableCell>
-      <TableCell>
-        {coin.quote.USD?.price?.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        })}
-      </TableCell>
-      <TableCell>
-        {FormattedPercentage(coin.quote.USD?.percent_change_1h)}
-      </TableCell>
-      <TableCell>
-        {FormattedPercentage(coin.quote.USD?.percent_change_24h)}
-      </TableCell>
-      <TableCell>
-        {FormattedPercentage(coin.quote.USD?.percent_change_7d)}
-      </TableCell>
-
-      <TableCell>
-        {coin.quote.USD?.market_cap?.toLocaleString("en-US", {
-          style: "currency",
-          currency: "USD",
-        })}
-      </TableCell>
+      <TableCell>{FormattedCurrency(coin.quote.USD?.price)}</TableCell>
+      <>
+        {percentChanges.map((val, index) => (
+          <TableCell key={index}>{FormattedPercentage(val)}</TableCell>
+        ))}
+      </>
+      <TableCell>{FormattedCurrency(coin.quote.USD?.market_cap)}</TableCell>
 
       <TableCell className="text-right">
-        <div>
-          {coin.quote.USD?.volume_24h?.toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-          })}
-        </div>
+        <div>{FormattedCurrency(coin.quote.USD?.volume_24h)}</div>
         <div className="opacity-50 font-light text-xs">
           {coin.quote.USD?.volume_24h && coin.quote.USD?.price
-            ? (coin.quote.USD.volume_24h / coin.quote.USD.price).toLocaleString(
-                "en-US",
-                {
-                  style: "currency",
-                  currency: "USD",
-                }
+            ? FormattedCurrency(
+                coin.quote.USD.volume_24h / coin.quote.USD.price
               ) +
               " " +
               coin.symbol
