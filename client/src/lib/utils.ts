@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { SortDataParams } from "./utilTypes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -22,11 +23,10 @@ const getValueByPath = (object: any, path: string) => {
     if (value == null) return undefined;
     value = value[key];
   }
-
   return value;
 };
 
-const compareValues = (a: any, b: any, isAscending: boolean) => {
+const compareValues = <T>(a: T, b: T, isAscending: boolean) => {
   const upperA = typeof a === "string" ? a.toUpperCase() : a;
   const upperB = typeof b === "string" ? b.toUpperCase() : b;
 
@@ -37,15 +37,7 @@ const compareValues = (a: any, b: any, isAscending: boolean) => {
   }
 };
 
-export const sortData = ({
-  data,
-  isAscending,
-  key,
-}: {
-  data: any[];
-  isAscending: boolean | null;
-  key: string;
-}) => {
+export const sortData = <T>({ data, isAscending, key }: SortDataParams<T>) => {
   if (isAscending === null) return data;
 
   return [...data].sort((a, b) => {

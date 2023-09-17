@@ -13,6 +13,7 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
     coin.quote.USD?.percent_change_24h,
     coin.quote.USD?.percent_change_7d,
   ];
+
   return (
     <TableRow onClick={() => navigate(`/coin/${coin.id}`)}>
       <TableCell>
@@ -21,7 +22,6 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
       <TableCell className="text-center">{coin.cmc_rank}</TableCell>
       <TableCell className="flex flex-row items-center content-center">
         <CoinLogo coinId={coin.id} />
-
         <span className="mt-2 ml-1"> {coin.name}</span>
         <span className="mt-2 ml-2 opacity-50"> {coin.symbol}</span>
       </TableCell>
