@@ -21,7 +21,6 @@ function CryptoTable() {
     error,
     isLoading,
   } = useQuery<CoinInfo[]>("CoinInfo", fetchMarket);
-  console.log("marketData", marketData);
   const [sortedCoinInfo, setSortedCoinInfo] = useState<CoinInfo[] | null>(null);
 
   useEffect(() => {
@@ -47,17 +46,23 @@ function CryptoTable() {
           <TableRow className="bg-transparent hover:bg-transparent">
             <TableHead></TableHead>
             <TableHead>Rank</TableHead>
-            <SortableTableHead
-              colName={"Name"}
-              marketData={marketData}
-              setSortedData={setSortedCoinInfo}
-            />
-            <TableHead>Price</TableHead>
-            <TableHead className="text-center">1h %</TableHead>
-            <TableHead className="text-center">24h %</TableHead>
-            <TableHead className="text-center">7d %</TableHead>
-            <TableHead>Market Cap</TableHead>
-            <TableHead className="text-right">Volume(24h)</TableHead>
+            {[
+              ["Name", "name"],
+              ["Price", "quote.USD.price"],
+              ["1h %", "quote.USD.percent_change_1h"],
+              ["24h %", "quote.USD.percent_change_24h"],
+              ["7d %", "quote.USD.percent_change_7d"],
+              ["Market Cap", "quote.USD.market_cap"],
+              ["Volume(24h)", "quote.USD.volume_24h"],
+            ].map((col, index) => (
+              <SortableTableHead
+                key={index}
+                colKey={col[1]}
+                colName={col[0]}
+                marketData={marketData}
+                setSortedData={setSortedCoinInfo}
+              />
+            ))}
             <TableHead className="text-center">Last 7 Days</TableHead>
           </TableRow>
         </TableHeader>

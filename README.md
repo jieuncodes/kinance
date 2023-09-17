@@ -7,10 +7,9 @@ Refactor the resulting code
 
 ## Game Plan
 -[ ] Sortable table
-
-
-
-
+-[ ] Fake buy and sell
+-[ ] Chart Ui
+-[ ] responsible design
 
 
 ```
