@@ -3,11 +3,17 @@ import CoinSparkLine from "components/chart/SparkLine";
 import { FormattedPercentage } from "components/nums/FormattedPercentage";
 import { FormattedCurrency, validateEnvVariable } from "lib/utils";
 import { useNavigate } from "react-router-dom";
-import { GeckcoListCoin } from "types/marketTypes";
+import { GekcoListCoin, KinanceServiceMarkets } from "types/marketTypes";
 import { TableCell, TableRow } from "../ui/Table";
 import { ColCoinName, ColCoinSymbol } from "styles/table";
 
-function CoinRow({ coin }: { coin: GeckcoListCoin }) {
+function CoinRow({
+  coin,
+  currency,
+}: {
+  coin: GekcoListCoin;
+  currency: KinanceServiceMarkets;
+}) {
   const navigate = useNavigate();
   //replace with duplicate 24hs
   const percentChanges = [
@@ -29,16 +35,20 @@ function CoinRow({ coin }: { coin: GeckcoListCoin }) {
           {coin.symbol.toUpperCase()}
         </ColCoinSymbol>
       </TableCell>
-      <TableCell>{FormattedCurrency(coin.current_price)}</TableCell>
+      <TableCell>
+        {FormattedCurrency({ value: coin.current_price, currency })}
+      </TableCell>
       <>
         {percentChanges.map((val, index) => (
           <TableCell key={index}>{FormattedPercentage(val)}</TableCell>
         ))}
       </>
-      <TableCell>{FormattedCurrency(coin.total_volume)}</TableCell>
+      <TableCell>
+        {FormattedCurrency({ value: coin.total_volume, currency })}
+      </TableCell>
 
       <TableCell className="text-right">
-        {FormattedCurrency(coin.market_cap)}
+        {FormattedCurrency({ value: coin.market_cap, currency })}
       </TableCell>
 
       <TableCell className="p-2">

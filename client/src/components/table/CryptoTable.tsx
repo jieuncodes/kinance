@@ -1,6 +1,9 @@
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { fetchDetailedCoinData, fetchMarket } from "services/apiService";
 import { TableHeaderBox } from "styles/table";
+import { GekcoListCoin, KinanceServiceMarkets } from "types/marketTypes";
 import SearchBar from "../SearchBar";
-import TableNav from "./TableNav";
 import {
   Table,
   TableBody,
@@ -9,28 +12,28 @@ import {
   TableRow,
 } from "../ui/Table";
 import CoinRow from "./CoinRow";
-import { CoinInfo, GeckcoListCoin } from "types/marketTypes";
-import { useEffect, useState } from "react";
 import SortableTableHead from "./SortableTableHead";
-import { useQuery } from "@tanstack/react-query";
-import { fetchDetailedCoinData, fetchMarket } from "services/apiService";
+import TableNav from "./TableNav";
 
 function CryptoTable() {
+  const [currency, setCurrency] = useState<KinanceServiceMarkets>("usd");
   const {
     data: marketData,
     error,
     isLoading,
-  } = useQuery<GeckcoListCoin[]>({
-    queryKey: ["MarketInfo"],
-    queryFn: () => fetchDetailedCoinData(),
+  } = useQuery<GekcoListCoin[]>({
+    queryKey: ["MarketInfo", currency],
+    queryFn: () => fetchDetailedCoinData({ currency }),
   });
-  const [sortedCoinInfo, setSortedCoinInfo] = useState<GeckcoListCoin[] | null>(
+  const [sortedCoinInfo, setSortedCoinInfo] = useState<GekcoListCoin[] | null>(
     null,
   );
 
   useEffect(() => {
+    console.log("Market data changed:", marketData);
     if (!marketData) return;
     setSortedCoinInfo(marketData);
+    console.log("set done");
   }, [marketData]);
 
   if (isLoading) {
@@ -43,7 +46,7 @@ function CryptoTable() {
   return (
     <>
       <TableHeaderBox>
-        <TableNav />
+        <TableNav setCurrency={setCurrency} />
         <SearchBar />
       </TableHeaderBox>
       <Table>
@@ -73,7 +76,7 @@ function CryptoTable() {
         </TableHeader>
         <TableBody>
           {sortedCoinInfo?.map((coin, index) => (
-            <CoinRow coin={coin} key={coin.id} />
+            <CoinRow coin={coin} key={coin.id} currency={currency} />
           ))}
         </TableBody>
       </Table>

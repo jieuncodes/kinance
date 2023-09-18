@@ -2,13 +2,13 @@ import SortBtn from "components/btns/SortBtn";
 import { TableHead } from "components/ui/Table";
 import { sortData } from "lib/utils";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { GeckcoListCoin } from "types/marketTypes";
+import { GekcoListCoin } from "types/marketTypes";
 
 interface SortableTableHeadProps {
   colKey: string;
   colName: string;
-  marketData: GeckcoListCoin[] | undefined;
-  setSortedData: Dispatch<SetStateAction<GeckcoListCoin[] | null>>;
+  marketData: GekcoListCoin[] | undefined;
+  setSortedData: Dispatch<SetStateAction<GekcoListCoin[] | null>>;
 }
 
 function SortableTableHead({

@@ -1,15 +1,25 @@
-import { Fragment, useState } from "react";
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { TableNavLi, TableNavUl } from "styles/table";
+import { KinanceServiceMarkets } from "types/marketTypes";
 
-function TableNav() {
+function TableNav({
+  setCurrency,
+}: {
+  setCurrency: Dispatch<SetStateAction<KinanceServiceMarkets>>;
+}) {
   const [activeIdx, setActiveIdx] = useState(0);
-  const marketTickers = ["Favorites", "All", "USD", "USDT", "BTC", "EUR"];
+  //TODO: add "Favorites"
+  const marketTickers: KinanceServiceMarkets[] = ["usd", "btc", "krw", "eur"];
+
+  useEffect(() => {
+    setCurrency(marketTickers[activeIdx]);
+  }, [activeIdx]);
 
   const renderBottomLine = ({ selectedIdx }: { selectedIdx: number }) =>
     activeIdx === selectedIdx ? (
       <TableNavLi
         layoutId="bottomLine"
-        className="absolute mt-8 border-t-2 border-sky-400 border-b-0 box-border text-transparent"
+        className="absolute mt-8 box-border border-b-0 border-t-2 border-sky-400 text-transparent"
       >
         {marketTickers[selectedIdx]}
       </TableNavLi>
@@ -23,7 +33,7 @@ function TableNav() {
             onClick={() => setActiveIdx(index)}
             className={`${index === activeIdx && "text-white"}`}
           >
-            {item}
+            {item.toUpperCase()}
             {renderBottomLine({ selectedIdx: index })}
           </TableNavLi>
         </Fragment>

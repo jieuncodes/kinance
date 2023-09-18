@@ -59,7 +59,7 @@ export interface GekcoHistory {
   market_caps: [number, number][];
   total_volumes: [number, number][];
 }
-export interface GeckcoListCoin {
+export interface GekcoListCoin {
   id: string;
   symbol: string;
   name: string;
@@ -87,4 +87,20 @@ export interface GeckcoListCoin {
   roi: null;
   last_updated: string;
   sparkline_in_7d: { price: number[] };
+}
+
+export interface CoinTableCache {
+  data: GekcoListCoin[] | null;
+  time: number;
+  currency: KinanceServiceMarkets;
+}
+export type KinanceServiceMarkets = "usd" | "btc" | "krw" | "eur";
+
+interface CacheData {
+  data: GekcoListCoin;
+  time: number;
+}
+
+export interface Cache {
+  [key: string]: CacheData;
 }

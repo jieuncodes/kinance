@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  getCoinSparkLine,
+  getCoinDetail,
   getCoinsWithSparkLine,
   getMarket,
 } from "../controllers/globalControllers";
@@ -9,6 +9,6 @@ const apiRouter = express.Router();
 
 apiRouter.get("/market-data", getMarket);
 apiRouter.get("/detailed-coins-data", getCoinsWithSparkLine);
-apiRouter.get("/spark-line/:id", getCoinSparkLine);
+apiRouter.get("/coinDetail/:id", getCoinDetail);
 
 export default apiRouter;

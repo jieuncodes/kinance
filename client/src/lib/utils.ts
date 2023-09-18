@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { SortDataParams } from "./utilTypes";
+import { KinanceServiceMarkets } from "types/marketTypes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -8,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const validateEnvVariable = (
   variable: string | undefined,
-  name: string
+  name: string,
 ): void => {
   if (!variable) {
     throw new Error(`Missing environment variable: ${name}`);
@@ -52,8 +53,14 @@ export const sortData = <T>({ data, isAscending, key }: SortDataParams<T>) => {
   });
 };
 
-export const FormattedCurrency = (value: number | undefined) =>
+export const FormattedCurrency = ({
+  value,
+  currency,
+}: {
+  value: number | undefined;
+  currency: KinanceServiceMarkets;
+}) =>
   value?.toLocaleString("en-US", {
     style: "currency",
-    currency: "USD",
+    currency: currency.toUpperCase(),
   }) || null;

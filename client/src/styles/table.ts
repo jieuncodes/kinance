@@ -9,6 +9,5 @@ export const TableNavLi = tw(
 
 export const TableHeaderBox = tw.div`flex flex-row justify-between items-center`;
 
-export const USD24Volume = tw.div`text-xs font-light opacity-50`;
 export const ColCoinName = tw.span`ml-1 mt-2`;
 export const ColCoinSymbol = tw.span`ml-2 mt-2 opacity-50"`;

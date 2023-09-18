@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CoinInfo } from "types/marketTypes";
+import { CoinInfo, GekcoListCoin } from "types/marketTypes";
 
 export const fetchMarket = async (): Promise<CoinInfo[]> => {
   try {
@@ -33,10 +33,14 @@ export const fetchSparkLine = async (
   }
 };
 
-export const fetchDetailedCoinData = async (): Promise<any[]> => {
+export const fetchDetailedCoinData = async ({
+  currency,
+}: {
+  currency: string;
+}): Promise<GekcoListCoin[]> => {
   try {
     const url = `${process.env
-      .REACT_APP_SERVER_ENDPOINT!}/api/detailed-coins-data`;
+      .REACT_APP_SERVER_ENDPOINT!}/api/detailed-coins-data?currency=${currency}`;
     const response = await axios.get(url);
     const data = await response.data;
     console.log("data", data);

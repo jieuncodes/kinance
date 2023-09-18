@@ -54,7 +54,7 @@ export type Endpoint =
   | "cateogries"
   | "price-performance-stats";
 
-export interface GeckcoListCoin {
+export interface GekcoListCoin {
   id: string;
   symbol: string;
   name: string;
@@ -83,3 +83,5 @@ export interface GeckcoListCoin {
   last_updated: string;
   sparkline_in_7d: { price: number[] };
 }
+
+export type KinanceServiceMarkets = "usd" | "btc" | "krw" | "eur";
