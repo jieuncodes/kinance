@@ -3,6 +3,6 @@ export const validateEnvVariable = (
   name: string
 ): void => {
   if (!variable) {
-    throw new Error(`Missing environment variable: ${name}`);
+    throw new Error(`Missing environment variable: ${variable}`);
   }
 };

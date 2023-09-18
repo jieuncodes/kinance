@@ -1,19 +1,19 @@
 import { Icons } from "components/Icons";
 import CoinSparkLine from "components/chart/SparkLine";
-import CoinLogo from "components/coin/CoinLogo";
 import { FormattedPercentage } from "components/nums/FormattedPercentage";
 import { FormattedCurrency, validateEnvVariable } from "lib/utils";
 import { useNavigate } from "react-router-dom";
-import { CoinInfo } from "types/marketTypes";
+import { GeckcoListCoin } from "types/marketTypes";
 import { TableCell, TableRow } from "../ui/Table";
-import { ColCoinName, ColCoinSymbol, USD24Volume } from "styles/table";
+import { ColCoinName, ColCoinSymbol } from "styles/table";
 
-function CoinRow({ coin }: { coin: CoinInfo }) {
+function CoinRow({ coin }: { coin: GeckcoListCoin }) {
   const navigate = useNavigate();
+  //replace with duplicate 24hs
   const percentChanges = [
-    coin.quote.USD?.percent_change_1h,
-    coin.quote.USD?.percent_change_24h,
-    coin.quote.USD?.percent_change_7d,
+    coin.price_change_percentage_24h,
+    coin.price_change_percentage_24h,
+    coin.price_change_percentage_24h,
   ];
 
   return (
@@ -21,35 +21,28 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
       <TableCell>
         <Icons.star />
       </TableCell>
-      <TableCell className="text-center">{coin.cmc_rank}</TableCell>
+      <TableCell className="text-center">{coin.market_cap_rank}</TableCell>
       <TableCell className="flex flex-row content-center items-center">
-        <CoinLogo coinId={coin.id} />
+        <img src={coin.image} alt={"logo"} className="mr-2 mt-2 h-6 w-6" />
         <ColCoinName> {coin.name}</ColCoinName>
-        <ColCoinSymbol> {coin.symbol}</ColCoinSymbol>
+        <ColCoinSymbol className="opacity-30">
+          {coin.symbol.toUpperCase()}
+        </ColCoinSymbol>
       </TableCell>
-      <TableCell>{FormattedCurrency(coin.quote.USD?.price)}</TableCell>
+      <TableCell>{FormattedCurrency(coin.current_price)}</TableCell>
       <>
         {percentChanges.map((val, index) => (
           <TableCell key={index}>{FormattedPercentage(val)}</TableCell>
         ))}
       </>
-      <TableCell>{FormattedCurrency(coin.quote.USD?.market_cap)}</TableCell>
+      <TableCell>{FormattedCurrency(coin.total_volume)}</TableCell>
 
       <TableCell className="text-right">
-        <div>{FormattedCurrency(coin.quote.USD?.volume_24h)}</div>
-        <USD24Volume>
-          {coin.quote.USD?.volume_24h && coin.quote.USD?.price
-            ? FormattedCurrency(
-                coin.quote.USD.volume_24h / coin.quote.USD.price,
-              ) +
-              " " +
-              coin.symbol
-            : null}
-        </USD24Volume>
+        {FormattedCurrency(coin.market_cap)}
       </TableCell>
 
       <TableCell className="p-2">
-        <CoinSparkLine coin={coin} />
+        <CoinSparkLine prices={coin.sparkline_in_7d.price} />
       </TableCell>
     </TableRow>
   );

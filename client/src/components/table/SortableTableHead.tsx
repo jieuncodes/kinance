@@ -2,13 +2,13 @@ import SortBtn from "components/btns/SortBtn";
 import { TableHead } from "components/ui/Table";
 import { sortData } from "lib/utils";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { CoinInfo } from "types/marketTypes";
+import { GeckcoListCoin } from "types/marketTypes";
 
 interface SortableTableHeadProps {
   colKey: string;
   colName: string;
-  marketData: CoinInfo[] | undefined;
-  setSortedData: Dispatch<SetStateAction<CoinInfo[] | null>>;
+  marketData: GeckcoListCoin[] | undefined;
+  setSortedData: Dispatch<SetStateAction<GeckcoListCoin[] | null>>;
 }
 
 function SortableTableHead({
@@ -32,7 +32,7 @@ function SortableTableHead({
   return (
     <TableHead>
       <div
-        className={`flex flex-row items-center gap-2 relative " ${
+        className={`" relative flex flex-row items-center gap-2 ${
           colName === "Volume(24h)" && "justify-end"
         }`}
       >

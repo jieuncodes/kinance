@@ -8,20 +8,25 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/Table";
-import { useQuery } from "react-query";
-import { fetchMarket } from "services/apiService";
 import CoinRow from "./CoinRow";
-import { CoinInfo } from "types/marketTypes";
+import { CoinInfo, GeckcoListCoin } from "types/marketTypes";
 import { useEffect, useState } from "react";
 import SortableTableHead from "./SortableTableHead";
+import { useQuery } from "@tanstack/react-query";
+import { fetchDetailedCoinData, fetchMarket } from "services/apiService";
 
 function CryptoTable() {
   const {
     data: marketData,
     error,
     isLoading,
-  } = useQuery<CoinInfo[]>("CoinInfo", fetchMarket);
-  const [sortedCoinInfo, setSortedCoinInfo] = useState<CoinInfo[] | null>(null);
+  } = useQuery<GeckcoListCoin[]>({
+    queryKey: ["MarketInfo"],
+    queryFn: () => fetchDetailedCoinData(),
+  });
+  const [sortedCoinInfo, setSortedCoinInfo] = useState<GeckcoListCoin[] | null>(
+    null,
+  );
 
   useEffect(() => {
     if (!marketData) return;
@@ -47,13 +52,13 @@ function CryptoTable() {
             <TableHead>{""}</TableHead>
             <TableHead>Rank</TableHead>
             {[
-              ["Name", "name"],
-              ["Price", "quote.USD.price"],
-              ["1h %", "quote.USD.percent_change_1h"],
-              ["24h %", "quote.USD.percent_change_24h"],
-              ["7d %", "quote.USD.percent_change_7d"],
-              ["Market Cap", "quote.USD.market_cap"],
-              ["Volume(24h)", "quote.USD.volume_24h"],
+              ["Coin", "name"],
+              ["Price", "current_price"],
+              ["1h", "price_change_percentage_24h"],
+              ["24h", "price_change_percentage_24h"],
+              ["7d", "price_change_percentage_24h"],
+              ["24h Volume", "total_volume"],
+              ["Market Cap", "market_cap"],
             ].map((col, index) => (
               <SortableTableHead
                 key={index}

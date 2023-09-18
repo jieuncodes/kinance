@@ -7,7 +7,6 @@ import Chart from "./chart/Chart";
 function CoinDetailPage() {
   const { id } = useParams();
   const [coinData, setCoinData] = useState<CoinInfo | null>(null);
-  console.log("id", id);
 
   useEffect(() => {
     const fetchData = async () => {
