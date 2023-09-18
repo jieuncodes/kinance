@@ -12,7 +12,7 @@ import { useQuery } from "react-query";
 import { fetchMarket } from "services/apiService";
 import CoinRow from "./CoinRow";
 import { CoinInfo } from "types/marketTypes";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import SortableTableHead from "./SortableTableHead";
 
 function CryptoTable() {
@@ -43,7 +43,7 @@ function CryptoTable() {
       </TableHeaderBox>
       <Table>
         <TableHeader>
-          <TableRow className="bg-transparent hover:bg-transparent">
+          <TableRow className="bg-transparent hover:bg-transparent ">
             <TableHead>{""}</TableHead>
             <TableHead>Rank</TableHead>
             {[

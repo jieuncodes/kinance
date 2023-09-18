@@ -3,7 +3,7 @@ import apiRouter from "./routers/apiRouter";
 import cors from "cors";
 import coinRouter from "./routers/coinRouter";
 
-const CLIENT_PORT = process.env.PORT || 3000;
+const CLIENT_PORT = process.env.CLIENT_PORT || 3000;
 
 const app = express();
 

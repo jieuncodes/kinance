@@ -16,3 +16,19 @@ export const fetchMarket = async (): Promise<CoinInfo[]> => {
     throw error;
   }
 };
+
+export const fetchSparkLine = async (
+  id: string,
+): Promise<number[] | undefined> => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_ENDPOINT!}/api/spark-line/${id}`,
+    );
+    if (response.status !== 200) {
+      console.error("Error fetching coin sparkline from the server");
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching coin sparkline from the server");
+  }
+};

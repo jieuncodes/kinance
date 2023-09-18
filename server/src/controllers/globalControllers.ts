@@ -52,3 +52,16 @@ export const coinPage = async (req: Request, res: Response) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+export const getCoinSparkLine = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(
+      `${process.env.GECKO_BASE_URL!}/${id}?sparkline=true`
+    );
+    res.json(response.data.market_data.sparkline_7d.price);
+  } catch (error) {
+    console.error(`Error fetching coin sparkline.  Error coin id: ${id}`);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

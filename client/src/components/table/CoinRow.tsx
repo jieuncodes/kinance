@@ -1,10 +1,12 @@
 import { Icons } from "components/Icons";
+import CoinSparkLine from "components/chart/SparkLine";
 import CoinLogo from "components/coin/CoinLogo";
 import { FormattedPercentage } from "components/nums/FormattedPercentage";
-import { FormattedCurrency } from "lib/utils";
+import { FormattedCurrency, validateEnvVariable } from "lib/utils";
 import { useNavigate } from "react-router-dom";
 import { CoinInfo } from "types/marketTypes";
 import { TableCell, TableRow } from "../ui/Table";
+import { ColCoinName, ColCoinSymbol, USD24Volume } from "styles/table";
 
 function CoinRow({ coin }: { coin: CoinInfo }) {
   const navigate = useNavigate();
@@ -20,10 +22,10 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
         <Icons.star />
       </TableCell>
       <TableCell className="text-center">{coin.cmc_rank}</TableCell>
-      <TableCell className="flex flex-row items-center content-center">
+      <TableCell className="flex flex-row content-center items-center">
         <CoinLogo coinId={coin.id} />
-        <span className="mt-2 ml-1"> {coin.name}</span>
-        <span className="mt-2 ml-2 opacity-50"> {coin.symbol}</span>
+        <ColCoinName> {coin.name}</ColCoinName>
+        <ColCoinSymbol> {coin.symbol}</ColCoinSymbol>
       </TableCell>
       <TableCell>{FormattedCurrency(coin.quote.USD?.price)}</TableCell>
       <>
@@ -35,18 +37,20 @@ function CoinRow({ coin }: { coin: CoinInfo }) {
 
       <TableCell className="text-right">
         <div>{FormattedCurrency(coin.quote.USD?.volume_24h)}</div>
-        <div className="opacity-50 font-light text-xs">
+        <USD24Volume>
           {coin.quote.USD?.volume_24h && coin.quote.USD?.price
             ? FormattedCurrency(
-                coin.quote.USD.volume_24h / coin.quote.USD.price
+                coin.quote.USD.volume_24h / coin.quote.USD.price,
               ) +
               " " +
               coin.symbol
             : null}
-        </div>
+        </USD24Volume>
       </TableCell>
 
-      <TableCell>graph</TableCell>
+      <TableCell className="p-2">
+        <CoinSparkLine coin={coin} />
+      </TableCell>
     </TableRow>
   );
 }
