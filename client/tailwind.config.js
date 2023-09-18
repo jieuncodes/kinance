@@ -15,6 +15,8 @@ module.exports = {
         bannerImg: "url('../public/images/banner.jpeg')",
       },
       colors: {
+        gain: "rgb(63,137,124)",
+        loss: "rgb(190,79,92)",
         bg: "rgb(14,20,34)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
