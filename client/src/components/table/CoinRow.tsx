@@ -5,7 +5,12 @@ import { FormattedCurrency, validateEnvVariable } from "lib/utils";
 import { useNavigate } from "react-router-dom";
 import { GekcoListCoin, KinanceServiceMarkets } from "types/marketTypes";
 import { TableCell, TableRow } from "../ui/Table";
-import { ColCoinName, ColCoinSymbol } from "styles/table";
+import {
+  CoinLogoIcon,
+  CoinNameCell,
+  ColCoinName,
+  ColCoinSymbol,
+} from "styles/table";
 
 function CoinRow({
   coin,
@@ -24,34 +29,34 @@ function CoinRow({
 
   return (
     <TableRow onClick={() => navigate(`/coin/${coin.name.toLowerCase()}`)}>
-      <TableCell>
+      <TableCell className="pr-0">
         <Icons.star />
       </TableCell>
-      <TableCell className="text-center">{coin.market_cap_rank}</TableCell>
-      <TableCell className="flex flex-row content-center items-center">
-        <img src={coin.image} alt={"logo"} className="mr-2 mt-2 h-6 w-6" />
-        <ColCoinName> {coin.name}</ColCoinName>
-        <ColCoinSymbol className="opacity-30">
-          {coin.symbol.toUpperCase()}
-        </ColCoinSymbol>
-      </TableCell>
+      <TableCell className="px-0 text-center">{coin.market_cap_rank}</TableCell>
+      <CoinNameCell className="w-52">
+        <CoinLogoIcon src={coin.image} alt={"logo"} />
+        <div className="truncate">
+          <ColCoinName> {coin.name}</ColCoinName>
+          <ColCoinSymbol>{coin.symbol.toUpperCase()}</ColCoinSymbol>
+        </div>
+      </CoinNameCell>
       <TableCell>
         {FormattedCurrency({ value: coin.current_price, currency })}
       </TableCell>
-      <>
-        {percentChanges.map((val, index) => (
-          <TableCell key={index}>{FormattedPercentage(val)}</TableCell>
-        ))}
-      </>
-      <TableCell>
+      {percentChanges.map((val, index) => (
+        <TableCell key={index} className="w-10">
+          {FormattedPercentage(val)}
+        </TableCell>
+      ))}
+      <TableCell className="justify-end text-right">
         {FormattedCurrency({ value: coin.total_volume, currency })}
       </TableCell>
 
-      <TableCell className="text-right">
+      <TableCell className=" justify-end text-right">
         {FormattedCurrency({ value: coin.market_cap, currency })}
       </TableCell>
 
-      <TableCell className="p-2">
+      <TableCell className=" p-2">
         <CoinSparkLine prices={coin.sparkline_in_7d.price} />
       </TableCell>
     </TableRow>

@@ -42,9 +42,7 @@ const fetchCoinsWithSparkLine = async ({ currency }: { currency: string }) => {
         },
       }
     );
-    //debugging slice
-    console.log("asdfasdfasdf", response.data.slice(0, 3));
-    return response.data.slice(0, 3);
+    return response.data;
   } catch (error) {
     console.error(`Error fetching coin sparkline.`);
     throw new Error("Internal Server Error");

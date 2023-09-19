@@ -32,8 +32,12 @@ function SortableTableHead({
   return (
     <TableHead>
       <div
-        className={`" relative flex flex-row items-center gap-2 ${
-          colName === "Volume(24h)" && "justify-end"
+        className={`relative flex flex-row items-center gap-2 pl-0 ${
+          colName === "24h Volume" || colName === "Market Cap"
+            ? "justify-end"
+            : colName === "Coin"
+            ? "justify-start"
+            : "justify-center"
         }`}
       >
         <span className="whitespace-nowrap">{colName}</span>

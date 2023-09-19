@@ -1,5 +1,6 @@
+import SearchBar from "components/SearchBar";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
-import { TableNavLi, TableNavUl } from "styles/table";
+import { TableNavBox, TableNavLi, TableNavUl } from "styles/table";
 import { KinanceServiceMarkets } from "types/marketTypes";
 
 function TableNav({
@@ -26,19 +27,22 @@ function TableNav({
     ) : null;
 
   return (
-    <TableNavUl>
-      {marketTickers.map((item, index) => (
-        <Fragment key={index}>
-          <TableNavLi
-            onClick={() => setActiveIdx(index)}
-            className={`${index === activeIdx && "text-white"}`}
-          >
-            {item.toUpperCase()}
-            {renderBottomLine({ selectedIdx: index })}
-          </TableNavLi>
-        </Fragment>
-      ))}
-    </TableNavUl>
+    <TableNavBox>
+      <TableNavUl>
+        {marketTickers.map((item, index) => (
+          <Fragment key={index}>
+            <TableNavLi
+              onClick={() => setActiveIdx(index)}
+              className={`${index === activeIdx && "text-white"}`}
+            >
+              {item.toUpperCase()}
+              {renderBottomLine({ selectedIdx: index })}
+            </TableNavLi>
+          </Fragment>
+        ))}
+      </TableNavUl>
+      <SearchBar />
+    </TableNavBox>
   );
 }
 
