@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { fetchDetailedCoinData } from "services/apiService";
+import { fetchDetailedMarketData } from "services/apiService";
 import { GekcoListCoin, KinanceServiceMarkets } from "types/marketTypes";
 import {
   Table,
@@ -20,17 +20,16 @@ function CryptoTableBody({ currency }: { currency: KinanceServiceMarkets }) {
     isLoading,
   } = useQuery<GekcoListCoin[]>({
     queryKey: ["MarketInfo", currency],
-    queryFn: () => fetchDetailedCoinData({ currency }),
+    queryFn: () => fetchDetailedMarketData({ currency }),
   });
   const [sortedCoinInfo, setSortedCoinInfo] = useState<GekcoListCoin[] | null>(
     null,
   );
 
   useEffect(() => {
-    console.log("Market data changed:", marketData);
+    console.info("Market data changed");
     if (!marketData) return;
     setSortedCoinInfo(marketData);
-    console.log("set done");
   }, [marketData]);
 
   if (error) {
@@ -41,14 +40,14 @@ function CryptoTableBody({ currency }: { currency: KinanceServiceMarkets }) {
     <Table>
       <TableHeader>
         <TableRow className="bg-transparent hover:bg-transparent">
-          <TableHead>{""}</TableHead>
+          <TableHead></TableHead>
           <TableHead>Rank</TableHead>
           {[
             ["Coin", "name"],
             ["Price", "current_price"],
-            ["1h", "price_change_percentage_24h"],
+            // ["1h", "price_change_percentage_24h"],
             ["24h", "price_change_percentage_24h"],
-            ["7d", "price_change_percentage_24h"],
+            // ["7d", "price_change_percentage_24h"],
             ["24h Volume", "total_volume"],
             ["Market Cap", "market_cap"],
           ].map((col, index) => (
@@ -65,7 +64,7 @@ function CryptoTableBody({ currency }: { currency: KinanceServiceMarkets }) {
       </TableHeader>
       <TableBody>
         {!isLoading && sortedCoinInfo ? (
-          sortedCoinInfo.map((coin, index) => (
+          sortedCoinInfo.map((coin) => (
             <CoinRow coin={coin} key={coin.id} currency={currency} />
           ))
         ) : (

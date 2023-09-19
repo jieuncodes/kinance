@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CoinInfo, GekcoListCoin } from "types/marketTypes";
+import { CoinInfo, GekcoCoinDetail, GekcoListCoin } from "types/marketTypes";
 
 export const fetchMarket = async (): Promise<CoinInfo[]> => {
   try {
@@ -17,23 +17,24 @@ export const fetchMarket = async (): Promise<CoinInfo[]> => {
   }
 };
 
-export const fetchSparkLine = async (
+export const fetchCoinDetails = async (
   id: string,
-): Promise<number[] | undefined> => {
+): Promise<GekcoCoinDetail | undefined> => {
+  console.log("fetchCoinDetails", fetchCoinDetails);
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_ENDPOINT!}/api/spark-line/${id}`,
+      `${process.env.REACT_APP_SERVER_ENDPOINT!}/api/coinDetail/${id}`,
     );
     if (response.status !== 200) {
-      console.error("Error fetching coin sparkline from the server");
+      console.error("Error fetching coin detail from the server.");
     }
     return response.data;
   } catch (error) {
-    console.error("Error fetching coin sparkline from the server");
+    console.error("Error fetching coin sparkline from the server.");
   }
 };
 
-export const fetchDetailedCoinData = async ({
+export const fetchDetailedMarketData = async ({
   currency,
 }: {
   currency: string;
@@ -43,7 +44,6 @@ export const fetchDetailedCoinData = async ({
       .REACT_APP_SERVER_ENDPOINT!}/api/detailed-coins-data?currency=${currency}`;
     const response = await axios.get(url);
     const data = await response.data;
-    console.log("data", data);
     return data;
   } catch (error) {
     console.error("Error fetching detailed market data", error);

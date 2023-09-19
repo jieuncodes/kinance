@@ -30,12 +30,57 @@ export const getMarket = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-let cache: Cache = {};
+let marketCache: Cache = {};
 
-const fetchCoinsWithSparkLine = async ({ currency }: { currency: string }) => {
+const fetchCoinsWithSparkLineFromGekco = async ({
+  currency,
+}: {
+  currency: string;
+}) => {
+  try {
+    let config = {
+      url: `${process.env.GECKO_BASE_URL}/markets?vs_currency=krw&order=market_cap_desc&per_page=30&page=1&sparkline=true`,
+      headers: {
+        x_cg_pro_api_key: process.env.GECKO_API_KEY,
+      },
+    };
+    const response = await axios.request(config);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching coins with sparkline data.`, error);
+    throw new Error("Internal Server Error");
+  }
+};
+
+export const getCoinsWithSparkLine = async (req: Request, res: Response) => {
+  const currency = (req.query.currency as string) || "usd";
+  try {
+    if (
+      !marketCache[currency] ||
+      Date.now() - marketCache[currency].time > 600000
+    ) {
+      console.info("Start fetching new data...");
+      marketCache[currency] = {
+        data: await fetchCoinsWithSparkLineFromGekco({
+          currency: currency || "usd",
+        }),
+        time: Date.now(),
+      };
+    } else {
+      console.info("Using cached market data");
+    }
+    res.json(marketCache[currency].data);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+let coinCaches: Cache = {};
+
+export const fetchCoinFromGekco = async (id: string) => {
   try {
     const response = await axios.get(
-      `${process.env.GECKO_BASE_URL}/markets?vs_currency=${currency}&order=market_cap_desc&per_page=100&page=1&sparkline=true`,
+      `${process.env.GECKO_BASE_URL!}/${id}?sparkline=true`,
       {
         headers: {
           x_cg_pro_api_key: process.env.GECKO_API_KEY,
@@ -44,61 +89,43 @@ const fetchCoinsWithSparkLine = async ({ currency }: { currency: string }) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error fetching coin sparkline.`);
-    throw new Error("Internal Server Error");
-  }
-};
-
-export const getCoinsWithSparkLine = async (req: Request, res: Response) => {
-  const currency = (req.query.currency as string) || "usd";
-  console.log("currency", currency);
-  try {
-    console.log("cache[currency] ", cache[currency]);
-    if (!cache[currency] || Date.now() - cache[currency].time > 600000) {
-      console.log("Fetching new data");
-      cache[currency] = {
-        data: await fetchCoinsWithSparkLine({
-          currency: currency || "usd",
-        }),
-        time: Date.now(),
-      };
-    } else {
-      console.log("Using cached data");
-    }
-    res.json(cache[currency].data);
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
-
-export const coinPage = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  validateEnvVariable(process.env.CMC_API_KEY, "CMC_API_KEY");
-  validateEnvVariable(process.env.GECKO_BASE_URL, "GECKO_BASE_URL");
-
-  try {
-    //TODO: Add parmas to get more data
-
-    const response = await axios.get(
-      `${process.env.GECKO_BASE_URL!}/${id}/market_chart?vs_currency=usd&days=1`
+    console.error(
+      `Error fetching coin detail from Gekco. Error coin id: ${id}`
     );
-    res.json(response.data);
-  } catch (error) {
-    console.error(`Error fetching coin data.  Error coin id: ${id}`, error);
-    res.status(500).send("Internal Server Error");
+    throw new Error("Internal Server Error");
   }
 };
 
 export const getCoinDetail = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
-    const response = await axios.get(
-      `${process.env.GECKO_BASE_URL!}/${id}?sparkline=true`
-    );
-    res.json(response.data.market_data.sparkline_7d.price);
+    if (!coinCaches[id] || Date.now() - coinCaches[id].time > 600000) {
+      console.info("Start fetching new data...");
+      coinCaches[id] = { data: await fetchCoinFromGekco(id), time: Date.now() };
+    } else {
+      console.info("Using Cached coin data");
+    }
+    res.json(coinCaches[id].data);
   } catch (error) {
-    console.error(`Error fetching coin sparkline.  Error coin id: ${id}`);
+    console.error(`Error fetching coin detail.  Error coin id: ${id}`);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const fetchCoinOHLC = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(
+      `${process.env.GECKO_BASE_URL!}/${id}/ohlc?vs_currency=usd&days=30`,
+      {
+        headers: {
+          x_cg_pro_api_key: process.env.GECKO_API_KEY,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching coin ohlc from Gekco. Error coin id: ${id}`);
+    throw new Error("Internal Server Error");
   }
 };

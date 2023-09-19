@@ -13,7 +13,6 @@ function Chart({ data }: { data: CoinInfo }) {
   const marginLeft = 40;
 
   useEffect(() => {
-    console.log("datadatadata", data);
     let svg = d3.select(chartRef.current);
     svg.selectAll("*").remove();
 

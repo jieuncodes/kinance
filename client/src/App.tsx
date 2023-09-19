@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import NavigationMenuBar from "./components/header/NavigationMenu";
 import { AppContainer } from "./styles/globalStyle";
 import ErrorPage from "components/ErrorPage";
-import CoinDetailPage from "components/CoinDetailPage";
+import CoinDetailPage from "components/coin/CoinDetail";
 
 function App() {
   return (

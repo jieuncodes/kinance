@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { SortDataParams } from "./utilTypes";
-import { KinanceServiceMarkets } from "types/marketTypes";
+import { Currencies, KinanceServiceMarkets } from "types/marketTypes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -58,9 +58,13 @@ export const FormattedCurrency = ({
   currency,
 }: {
   value: number | undefined;
-  currency: KinanceServiceMarkets;
+  currency: Currencies;
 }) =>
   value?.toLocaleString("en-US", {
     style: "currency",
     currency: currency.toUpperCase(),
   }) || null;
+
+export const getClassNameForValue = (value: number) => {
+  return value < 0 ? "text-loss" : "text-gain";
+};

@@ -1,7 +1,7 @@
 import { Icons } from "components/Icons";
 import CoinSparkLine from "components/chart/SparkLine";
 import { FormattedPercentage } from "components/nums/FormattedPercentage";
-import { FormattedCurrency, validateEnvVariable } from "lib/utils";
+import { FormattedCurrency } from "lib/utils";
 import { useNavigate } from "react-router-dom";
 import { GekcoListCoin, KinanceServiceMarkets } from "types/marketTypes";
 import { TableCell, TableRow } from "../ui/Table";
@@ -11,7 +11,6 @@ import {
   ColCoinName,
   ColCoinSymbol,
 } from "styles/table";
-
 function CoinRow({
   coin,
   currency,
@@ -20,12 +19,8 @@ function CoinRow({
   currency: KinanceServiceMarkets;
 }) {
   const navigate = useNavigate();
-  //replace with duplicate 24hs
-  const percentChanges = [
-    coin.price_change_percentage_24h,
-    coin.price_change_percentage_24h,
-    coin.price_change_percentage_24h,
-  ];
+
+  const percentChanges = [coin.price_change_percentage_24h];
 
   return (
     <TableRow onClick={() => navigate(`/coin/${coin.name.toLowerCase()}`)}>

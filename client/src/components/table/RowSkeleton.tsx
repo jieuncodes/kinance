@@ -9,7 +9,10 @@ function RowSkeleton() {
       {Array(10)
         .fill(null)
         .map((_, index) => (
-          <tr className="bg-blue-950/50 transition-colors hover:bg-blue-950 data-[state=selected]:bg-muted">
+          <tr
+            className="bg-blue-950/50 transition-colors hover:bg-blue-950 data-[state=selected]:bg-muted"
+            key={index}
+          >
             <TableCell>
               <Skeleton className="h-6 w-6 rounded-full" />
             </TableCell>
@@ -31,15 +34,15 @@ function RowSkeleton() {
             </TableCell>
             <TableCell>
               <Skeleton className="h-4 w-10" />
-            </TableCell>{" "}
+            </TableCell>
             <TableCell>
               <Skeleton className="h-4 w-10" />
             </TableCell>
             <TableCell>
-              <Skeleton className="h-4 w-20" />
+              <Skeleton className="w-30 h-4" />
             </TableCell>
-            <TableCell className="text-right">
-              <Skeleton className="h-4 w-20" />
+            <TableCell>
+              <Skeleton className=" w-30 h-4" />
             </TableCell>
             <TableCell className="p-2 pr-4">
               <Skeleton className="w-30 h-4" />
