@@ -5,6 +5,8 @@ import { fetchCoinDetails } from "services/apiService";
 import { Currencies, GekcoCoinDetail } from "types/marketTypes";
 
 import CoinSummaryBar from "./CoinSummaryBar";
+import { useQuery } from "@tanstack/react-query";
+import PriceChart from "components/chart/PriceChart";
 
 function CoinDetailPage() {
   const { id } = useParams();
@@ -12,30 +14,32 @@ function CoinDetailPage() {
   const [currTickerIdx, setCurrTickerIdx] = useState(0);
   const [currency, setCurrency] = useState<Currencies>("usd");
 
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["fetchCoinDetails", id],
+    queryFn: () => fetchCoinDetails(id),
+  });
+
   useEffect(() => {
-    if (!id) return;
-    const getCoinDetail = async (id: string) => {
-      const data = await fetchCoinDetails(id);
+    if (!data) return;
 
-      if (data) {
-        const seenTargets: { [key: string]: boolean } = {};
-        data.tickers = data.tickers.filter((ticker) => {
-          if (ticker.base !== data.id && !seenTargets[ticker.target]) {
-            seenTargets[ticker.target] = true;
-            return true;
-          }
-          return false;
-        });
+    const seenTargets: { [key: string]: boolean } = {};
+
+    const filteredTickers = (data.tickers = data.tickers.filter((ticker) => {
+      if (
+        ticker.base.toLowerCase() === data.symbol &&
+        !seenTargets[ticker.target]
+      ) {
+        seenTargets[ticker.target] = true;
+        return true;
       }
-      setCoinDetail(data);
-    };
-    getCoinDetail(id);
-  }, [id]);
+      return false;
+    }));
 
-  useEffect(() => {}, [currTickerIdx]);
+    setCoinDetail({ ...data, tickers: filteredTickers });
+  }, [data]);
 
-  if (!coinDetail) {
-    return <div>Loading...</div>;
+  if (!coinDetail || isLoading) {
+    return <div className="p-12">Loading...</div>;
   }
 
   return (
@@ -46,6 +50,7 @@ function CoinDetailPage() {
         setCurrTickerIdx={setCurrTickerIdx}
         currency={currency}
       />
+      <PriceChart id={id} />
     </>
   );
 }

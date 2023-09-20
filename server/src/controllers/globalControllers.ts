@@ -123,7 +123,7 @@ export const fetchCoinOHLC = async (req: Request, res: Response) => {
         },
       }
     );
-    return response.data;
+    res.json(response.data);
   } catch (error) {
     console.error(`Error fetching coin ohlc from Gekco. Error coin id: ${id}`);
     throw new Error("Internal Server Error");

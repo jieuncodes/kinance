@@ -385,3 +385,13 @@ export type Currencies =
   | "bits"
   | "link"
   | "sats";
+
+export interface D3OHLC {
+  date: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
+export type GekcoOHLC = [number, number, number, number, number][];

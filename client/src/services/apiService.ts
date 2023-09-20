@@ -18,9 +18,8 @@ export const fetchMarket = async (): Promise<CoinInfo[]> => {
 };
 
 export const fetchCoinDetails = async (
-  id: string,
+  id: string | undefined,
 ): Promise<GekcoCoinDetail | undefined> => {
-  console.log("fetchCoinDetails", fetchCoinDetails);
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_ENDPOINT!}/api/coinDetail/${id}`,
@@ -48,5 +47,18 @@ export const fetchDetailedMarketData = async ({
   } catch (error) {
     console.error("Error fetching detailed market data", error);
     throw error;
+  }
+};
+
+export const fetchCoinOHLC = async (id: string | undefined) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_ENDPOINT!}/api/ohlc/${id}`,
+    );
+    console.log("response.data", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching coin OHLC. Error coin id: ${id}`);
+    throw new Error("Internal Server Error");
   }
 };
