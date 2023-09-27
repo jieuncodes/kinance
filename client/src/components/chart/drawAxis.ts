@@ -16,7 +16,6 @@ export const setUpScaleAndAxes = ({
   svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>;
   transformedData: D3OHLC[];
 }) => {
-  console.log("transformedData", transformedData);
   const xScale = d3
     .scaleUtc()
     .domain([

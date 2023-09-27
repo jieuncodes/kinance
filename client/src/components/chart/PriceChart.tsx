@@ -37,8 +37,9 @@ function PriceChart({
       </select>
 
       <ChartContainer>
-        <ChartIndicators ticker={ticker} currency={currency} />
-        <CandlestickChart data={data} />
+        {data && ticker && (
+          <CandlestickChart data={data} ticker={ticker} currency={currency} />
+        )}
       </ChartContainer>
     </>
   );

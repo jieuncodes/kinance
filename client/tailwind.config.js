@@ -17,6 +17,8 @@ module.exports = {
       colors: {
         gain: "rgb(63,137,124)",
         loss: "rgb(190,79,92)",
+        brightgain: "rgb(66,146,128)",
+        brightloss: "rgb(207,84,95)",
         bg: "rgb(14,20,34)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
