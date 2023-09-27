@@ -50,7 +50,7 @@ function CoinDetailPage() {
         setCurrTickerIdx={setCurrTickerIdx}
         currency={currency}
       />
-      <PriceChart id={id} />
+      <PriceChart coinId={id} ticker={data?.symbol} currency={currency} />
     </>
   );
 }

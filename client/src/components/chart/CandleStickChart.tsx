@@ -4,8 +4,9 @@ import * as d3 from "d3";
 import addCandleStick from "./addCandleStick";
 import { transformToD3OHLC } from "lib/d3Helpers";
 import { useEffect, useRef } from "react";
-import { ChartSVG } from "styles/chart";
+import { CandleChartArea, ChartSVG } from "styles/chart";
 import addCrosshair from "./addCrosshair";
+import ChartIndicators from "./ChartIndicators";
 
 export const CHART_WIDTH = 928;
 export const CHART_HEIGHT = 600;
@@ -34,13 +35,13 @@ function CandlestickChart({ data }: { data: GekcoOHLC | null | undefined }) {
   }, [data]);
 
   return (
-    <div className={`chart-box bg-red-50/30`} ref={chartBox}>
+    <CandleChartArea ref={chartBox}>
       <ChartSVG
         ref={chartRef}
         width={CHART_WIDTH}
         height={CHART_HEIGHT}
       ></ChartSVG>
-    </div>
+    </CandleChartArea>
   );
 }
 export default CandlestickChart;

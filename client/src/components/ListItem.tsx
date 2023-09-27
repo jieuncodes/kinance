@@ -19,7 +19,7 @@ export const ListItem = forwardRef<
       >
         <div>
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm font-thin leading-snug ">
+          <p className="line-clamp-2 text-sm leading-snug  text-white/50 ">
             {children}
           </p>
         </div>

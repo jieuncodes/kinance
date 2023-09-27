@@ -1,15 +1,23 @@
-import { GekcoOHLC } from "types/marketTypes";
+import { Currencies, GekcoOHLC } from "types/marketTypes";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCoinOHLC } from "services/apiService";
 import { ChartContainer } from "styles/chart";
 import CandlestickChart from "./CandleStickChart";
-import { SelectorBox } from "../../styles/coinInfoRow";
 import { useState } from "react";
+import ChartIndicators from "./ChartIndicators";
 
-function PriceChart({ id }: { id: string | undefined }) {
+function PriceChart({
+  coinId,
+  ticker,
+  currency,
+}: {
+  coinId: string | undefined;
+  ticker: string | undefined;
+  currency: Currencies;
+}) {
   const { isLoading, error, data } = useQuery<GekcoOHLC | null>({
-    queryKey: ["OHLC", id],
-    queryFn: () => fetchCoinOHLC({ id: id, currency: "usd", days: 30 }),
+    queryKey: ["OHLC", coinId],
+    queryFn: () => fetchCoinOHLC({ id: coinId, currency, days: 30 }),
   });
   const [currDay, setCurrDay] = useState<number>(30);
   const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -29,6 +37,7 @@ function PriceChart({ id }: { id: string | undefined }) {
       </select>
 
       <ChartContainer>
+        <ChartIndicators ticker={ticker} currency={currency} />
         <CandlestickChart data={data} />
       </ChartContainer>
     </>
