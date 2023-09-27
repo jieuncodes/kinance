@@ -5,6 +5,7 @@ import addCandleStick from "./addCandleStick";
 import { transformToD3OHLC } from "lib/d3Helpers";
 import { useEffect, useRef } from "react";
 import { ChartSVG } from "styles/chart";
+import addCrosshair from "./addCrosshair";
 
 export const CHART_WIDTH = 928;
 export const CHART_HEIGHT = 600;
@@ -29,38 +30,11 @@ function CandlestickChart({ data }: { data: GekcoOHLC | null | undefined }) {
     });
 
     addCandleStick({ svg, transformedData, xScale, yScale });
-
-    const verticalLine = svg
-      .append("line")
-      .attr("stroke", "gray")
-      .attr("stroke-width", 1);
-
-    const horizontalLine = svg
-      .append("line")
-      .attr("stroke", "gray")
-      .attr("stroke-width", 1);
-
-    if (chartBox.current) {
-      chartBox.current.addEventListener("mousemove", (event: MouseEvent) => {
-        const x = event.clientX;
-        const y = event.clientY;
-        console.log("", x, y);
-        verticalLine
-          .attr("x1", x - MARGIN_LEFT)
-          .attr("x2", x - MARGIN_LEFT)
-          .attr("y1", MARGIN_TOP)
-          .attr("y2", CHART_HEIGHT - MARGIN_BOTTOM);
-        horizontalLine
-          .attr("x1", MARGIN_LEFT)
-          .attr("x2", CHART_WIDTH)
-          .attr("y1", y)
-          .attr("y2", y);
-      });
-    }
+    addCrosshair({ svg, chartBox });
   }, [data]);
 
   return (
-    <div className="chart-box" ref={chartBox}>
+    <div className={`chart-box bg-red-50/30`} ref={chartBox}>
       <ChartSVG
         ref={chartRef}
         width={CHART_WIDTH}
