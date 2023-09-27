@@ -1,5 +1,10 @@
 import axios from "axios";
-import { CoinInfo, GekcoCoinDetail, GekcoListCoin } from "types/marketTypes";
+import {
+  CoinInfo,
+  Currencies,
+  GekcoCoinDetail,
+  GekcoListCoin,
+} from "types/marketTypes";
 
 export const fetchMarket = async (): Promise<CoinInfo[]> => {
   try {
@@ -50,12 +55,20 @@ export const fetchDetailedMarketData = async ({
   }
 };
 
-export const fetchCoinOHLC = async (id: string | undefined) => {
+export const fetchCoinOHLC = async ({
+  id,
+  currency,
+  days,
+}: {
+  id: string | undefined;
+  currency: Currencies;
+  days: number;
+}) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_ENDPOINT!}/api/ohlc/${id}`,
+      `${process.env
+        .REACT_APP_SERVER_ENDPOINT!}/api/ohlc/${id}?currency=${currency}&days=${days}`,
     );
-    console.log("response.data", response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching coin OHLC. Error coin id: ${id}`);

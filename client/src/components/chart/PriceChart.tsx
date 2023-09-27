@@ -1,47 +1,36 @@
-import * as d3 from "d3";
 import { GekcoOHLC } from "types/marketTypes";
 import { useQuery } from "@tanstack/react-query";
-import { transformToD3OHLC } from "lib/d3Helpers";
-import { useEffect, useRef } from "react";
 import { fetchCoinOHLC } from "services/apiService";
-import { setUpScaleAndAxes } from "./drawAxis";
-import addCandleStick from "./addCandleStick";
-
-export const CHART_WIDTH = 928;
-export const CHART_HEIGHT = 600;
-export const MARGIN_TOP = 50;
-export const MARGIN_LEFT = 50;
+import { ChartContainer } from "styles/chart";
+import CandlestickChart from "./CandleStickChart";
+import { SelectorBox } from "../../styles/coinInfoRow";
+import { useState } from "react";
 
 function PriceChart({ id }: { id: string | undefined }) {
-  const chartRef = useRef<SVGSVGElement>(null);
-
   const { isLoading, error, data } = useQuery<GekcoOHLC | null>({
     queryKey: ["OHLC", id],
-    queryFn: () => fetchCoinOHLC(id),
+    queryFn: () => fetchCoinOHLC({ id: id, currency: "usd", days: 30 }),
   });
-
-  useEffect(() => {
-    if (!data) return;
-    const transformedData = transformToD3OHLC(data);
-    console.log("transformedData", transformedData);
-
-    const svg = d3.select(chartRef.current);
-    svg.selectAll("*").remove();
-
-    const { xScale, yScale, xAxis, yAxis } = setUpScaleAndAxes({
-      svg,
-      transformedData,
-    });
-    addCandleStick({ svg, transformedData, xScale, yScale });
-  }, [data]);
-
+  const [currDay, setCurrDay] = useState<number>(30);
+  const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(event.target.value);
+    setCurrDay(Number(event.target.accessKey));
+  };
   return (
     <>
-      <div className="m-12">
-        <svg ref={chartRef} width={CHART_WIDTH} height={CHART_HEIGHT}>
-          asdf
-        </svg>
-      </div>
+      <select
+        name="days"
+        id="days-selector"
+        className="bg-none text-black"
+        onChange={handleDayChange}
+      >
+        <option value="30">30D</option>
+        <option value="60">60D</option>
+      </select>
+
+      <ChartContainer>
+        <CandlestickChart data={data} />
+      </ChartContainer>
     </>
   );
 }

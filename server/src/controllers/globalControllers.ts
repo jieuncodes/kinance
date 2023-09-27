@@ -114,9 +114,12 @@ export const getCoinDetail = async (req: Request, res: Response) => {
 
 export const fetchCoinOHLC = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const days = req.query.days || 30;
+  const currency = req.query.currency || "usd";
   try {
     const response = await axios.get(
-      `${process.env.GECKO_BASE_URL!}/${id}/ohlc?vs_currency=usd&days=30`,
+      `${process.env
+        .GECKO_BASE_URL!}/${id}/ohlc?vs_currency=${currency}&days=${days}`,
       {
         headers: {
           x_cg_pro_api_key: process.env.GECKO_API_KEY,
