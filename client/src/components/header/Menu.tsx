@@ -85,7 +85,7 @@ function Menu() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className="text-sm pl-3">
+          <NavigationMenuLink className="pl-3 text-sm">
             Visitor log
           </NavigationMenuLink>
         </NavigationMenuItem>
