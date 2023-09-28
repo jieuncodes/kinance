@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { CandleChartArea, ChartSVG } from "styles/chart";
 import addCrosshair from "./addCrosshair";
 import ChartIndicators from "./ChartIndicators";
+import addChartGrid from "./addChartGrid";
 
 export const CHART_WIDTH = 928;
 export const CHART_HEIGHT = 600;
@@ -41,6 +42,7 @@ function CandlestickChart({
     });
 
     addCandleStick({ svg, transformedData, xScale, yScale });
+    addChartGrid({ svg, xScale, yScale });
     addCrosshair({ svg, chartBox });
 
     svg.on("mousemove", function (event) {
@@ -65,7 +67,7 @@ function CandlestickChart({
       />
       <ChartSVG
         ref={chartRef}
-        width={CHART_WIDTH}
+        width={CHART_WIDTH + 10}
         height={CHART_HEIGHT}
       ></ChartSVG>
     </CandleChartArea>
