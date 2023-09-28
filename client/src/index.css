@@ -16,6 +16,16 @@ body {
     background-color: #0E1422;
 }
 
+.x-grid {
+    color: white;
+    opacity: 0.05;
+}
+
+.y-grid {
+    color: white;
+    opacity: 0.05;
+}
+
 .cyan-drop-shadow {
     filter: drop-shadow(0 5px 5px #00b7c3);
 }

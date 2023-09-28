@@ -42,12 +42,33 @@ export const setUpScaleAndAxes = ({
     .attr("transform", `translate(0,${CHART_HEIGHT - MARGIN_TOP})`);
   gx.transition().duration(750).call(xAxis);
 
+  const xGrid = d3
+    .axisBottom(xScale)
+    .tickSize(-CHART_HEIGHT + MARGIN_TOP + MARGIN_BOTTOM)
+    .tickPadding(10);
+
+  svg
+    .append("g")
+    .attr("class", "x-grid")
+    .attr("transform", `translate(0,${CHART_HEIGHT - MARGIN_TOP})`)
+    .call(xGrid);
+
   const gy = svg
     .append("g")
     .attr("class", "y-axis")
     .attr("transform", `translate(${MARGIN_LEFT},0)`)
     .call(yAxis);
   gy.transition().duration(750).call(yAxis);
+
+  const yGrid = d3
+    .axisLeft(yScale)
+    .tickSize(-CHART_WIDTH + MARGIN_LEFT + MARGIN_RIGHT)
+    .tickFormat(() => "");
+  svg
+    .append("g")
+    .attr("class", "y-grid")
+    .attr("transform", `translate(${MARGIN_LEFT},0)`)
+    .call(yGrid);
 
   return { xScale, yScale };
 };
