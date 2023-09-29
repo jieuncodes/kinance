@@ -8,6 +8,11 @@ import { CandleChartArea, ChartSVG } from "styles/chart";
 import addCrosshair from "./addCrosshair";
 import ChartIndicators from "./ChartIndicators";
 import addChartGrid from "./addChartGrid";
+<<<<<<< HEAD
+import addCrosshairLabelOnAxis from "./addCrossHairLabelOnAxis";
+import addMouseIndicators from "./addCrossHairLabelOnAxis";
+=======
+>>>>>>> 5f1fb447e05df969693c3da8e2a423d17d743309
 
 export const CHART_WIDTH = 928;
 export const CHART_HEIGHT = 600;
@@ -44,6 +49,14 @@ function CandlestickChart({
     addCandleStick({ svg, transformedData, xScale, yScale });
     addChartGrid({ svg, xScale, yScale });
     addCrosshair({ svg, chartBox });
+<<<<<<< HEAD
+    addMouseIndicators({
+      svg,
+      xScale,
+      yScale,
+      transformedData,
+      setCurrXDataPoint,
+=======
 
     svg.on("mousemove", function (event) {
       const mouseX = d3.pointer(event)[0];
@@ -55,6 +68,7 @@ function CandlestickChart({
       if (closestDataPoint) {
         setCurrXDataPoint(closestDataPoint);
       }
+>>>>>>> 5f1fb447e05df969693c3da8e2a423d17d743309
     });
   }, [data]);
 

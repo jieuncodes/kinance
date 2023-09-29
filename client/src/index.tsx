@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import Providers from "Providers";
+import Providers from "providers/Providers";
 
 const rootElement = document.getElementById("root");
 
@@ -13,7 +13,7 @@ if (rootElement) {
       <Providers>
         <App />
       </Providers>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 } else {
   console.error("Root element not found");

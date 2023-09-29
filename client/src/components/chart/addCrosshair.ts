@@ -50,7 +50,11 @@ function addCrosshair({
 
       horizontalLine
         .attr("x1", MARGIN_LEFT)
+<<<<<<< HEAD
+        .attr("x2", CHART_WIDTH - MARGIN_RIGHT)
+=======
         .attr("x2", CHART_WIDTH)
+>>>>>>> 5f1fb447e05df969693c3da8e2a423d17d743309
         .attr("y1", y)
         .attr("y2", y);
     });

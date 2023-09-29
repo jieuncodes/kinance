@@ -1,47 +1,41 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { fetchCoinDetails } from "services/apiService";
-
+import PriceChart from "components/chart/PriceChart";
+import CoinSummaryBar from "./CoinSummaryBar";
+import { ChartContext } from "providers/CoinProvider";
+import { useContext, useEffect, useState } from "react";
 import { Currencies, GekcoCoinDetail } from "types/marketTypes";
 
-import CoinSummaryBar from "./CoinSummaryBar";
-import { useQuery } from "@tanstack/react-query";
-import PriceChart from "components/chart/PriceChart";
+function CoinDetails({ currency }: { currency: Currencies }) {
+  const { isCoinMetaDataLoading, coinMetaDataError, coinMetaData } =
+    useContext(ChartContext);
 
-function CoinDetailPage() {
-  const { id } = useParams();
   const [coinDetail, setCoinDetail] = useState<GekcoCoinDetail>();
+  console.log("coinDetail", coinDetail);
   const [currTickerIdx, setCurrTickerIdx] = useState(0);
-  const [currency, setCurrency] = useState<Currencies>("usd");
-
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["fetchCoinDetails", id],
-    queryFn: () => fetchCoinDetails(id),
-  });
 
   useEffect(() => {
-    if (!data) return;
+    if (!coinMetaData) return;
 
     const seenTargets: { [key: string]: boolean } = {};
 
-    const filteredTickers = (data.tickers = data.tickers.filter((ticker) => {
-      if (
-        ticker.base.toLowerCase() === data.symbol &&
-        !seenTargets[ticker.target]
-      ) {
-        seenTargets[ticker.target] = true;
-        return true;
-      }
-      return false;
-    }));
+    const filteredTickers = (coinMetaData.tickers = coinMetaData.tickers.filter(
+      (ticker) => {
+        if (
+          ticker.base.toLowerCase() === coinMetaData.symbol &&
+          !seenTargets[ticker.target]
+        ) {
+          seenTargets[ticker.target] = true;
+          return true;
+        }
+        return false;
+      },
+    ));
 
-    setCoinDetail({ ...data, tickers: filteredTickers });
-  }, [data]);
+    setCoinDetail({ ...coinMetaData, tickers: filteredTickers });
+  }, [coinMetaData]);
 
-  if (!coinDetail || isLoading) {
+  if (!coinDetail || isCoinMetaDataLoading) {
     return <div className="p-12">Loading...</div>;
   }
-
   return (
     <>
       <CoinSummaryBar
@@ -50,9 +44,16 @@ function CoinDetailPage() {
         setCurrTickerIdx={setCurrTickerIdx}
         currency={currency}
       />
+<<<<<<< HEAD
+      <PriceChart
+        coinId={coinMetaData?.id}
+        ticker={coinMetaData?.symbol}
+        currency={currency}
+      />
+=======
       <PriceChart coinId={id} ticker={data?.symbol} currency={currency} />
+>>>>>>> 5f1fb447e05df969693c3da8e2a423d17d743309
     </>
   );
 }
-
-export default CoinDetailPage;
+export default CoinDetails;
