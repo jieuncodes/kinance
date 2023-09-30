@@ -12,10 +12,10 @@ import * as d3 from "d3";
 
 function addCrosshair({
   svg,
-  chartBox,
+  chartBoxRef,
 }: {
   svg: Selection<SVGSVGElement | null, unknown, null, undefined>;
-  chartBox: RefObject<HTMLDivElement>;
+  chartBoxRef: RefObject<HTMLDivElement>;
 }) {
   const verticalLine = svg
     .append("line")
@@ -29,9 +29,9 @@ function addCrosshair({
     .attr("stroke-width", 1)
     .attr("stroke-dasharray", "5,5");
 
-  if (chartBox.current) {
-    chartBox.current.addEventListener("mousemove", (event: MouseEvent) => {
-      const [x, y] = d3.pointer(event, chartBox.current);
+  if (chartBoxRef.current) {
+    chartBoxRef.current.addEventListener("mousemove", (event: MouseEvent) => {
+      const [x, y] = d3.pointer(event, chartBoxRef.current);
       if (
         !(
           x > MARGIN_LEFT &&
@@ -50,11 +50,7 @@ function addCrosshair({
 
       horizontalLine
         .attr("x1", MARGIN_LEFT)
-<<<<<<< HEAD
         .attr("x2", CHART_WIDTH - MARGIN_RIGHT)
-=======
-        .attr("x2", CHART_WIDTH)
->>>>>>> 5f1fb447e05df969693c3da8e2a423d17d743309
         .attr("y1", y)
         .attr("y2", y);
     });

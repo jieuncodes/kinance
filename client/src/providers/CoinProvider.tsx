@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { createContext } from "react";
 import { fetchCoinDetails, fetchCoinOHLC } from "services/apiService";
 import { Currencies, GekcoCoinDetail, GekcoOHLC } from "types/marketTypes";
+import { createContext, ReactNode } from "react";
 
 type ChartContextType = {
   isCoinMetaDataLoading: boolean;
@@ -28,7 +28,7 @@ export function CoinProvider({
   coinId,
   currency,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   coinId: string | undefined;
   currency: Currencies;
 }) {

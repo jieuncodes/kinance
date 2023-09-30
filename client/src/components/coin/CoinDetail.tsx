@@ -9,7 +9,6 @@ function CoinDetails({ currency }: { currency: Currencies }) {
     useContext(ChartContext);
 
   const [coinDetail, setCoinDetail] = useState<GekcoCoinDetail>();
-  console.log("coinDetail", coinDetail);
   const [currTickerIdx, setCurrTickerIdx] = useState(0);
 
   useEffect(() => {
@@ -36,6 +35,7 @@ function CoinDetails({ currency }: { currency: Currencies }) {
   if (!coinDetail || isCoinMetaDataLoading) {
     return <div className="p-12">Loading...</div>;
   }
+
   return (
     <>
       <CoinSummaryBar
@@ -44,15 +44,11 @@ function CoinDetails({ currency }: { currency: Currencies }) {
         setCurrTickerIdx={setCurrTickerIdx}
         currency={currency}
       />
-<<<<<<< HEAD
       <PriceChart
         coinId={coinMetaData?.id}
         ticker={coinMetaData?.symbol}
         currency={currency}
       />
-=======
-      <PriceChart coinId={id} ticker={data?.symbol} currency={currency} />
->>>>>>> 5f1fb447e05df969693c3da8e2a423d17d743309
     </>
   );
 }
