@@ -33,14 +33,22 @@ function addCrosshair({
   transformedData,
   setPointerData,
 }: addCrosshairProps) {
+  const priceLabelBackground = svg
+    .append("rect")
+    .attr("class", "price-label-background");
+
   const priceLabel = svg
     .append("text")
-    .attr("fill", "black")
-    .attr("alignment-baseline", "middle");
+    .attr("alignment-baseline", "middle")
+    .attr("class", "price-label");
+
+  const dateLabelBackground = svg
+    .append("rect")
+    .attr("class", "date-label-background");
 
   const dateLabel = svg
     .append("text")
-    .attr("fill", "black")
+    .attr("class", "date-label")
     .attr("alignment-baseline", "hanging");
 
   svg.on("mousemove", function (event) {
@@ -52,15 +60,24 @@ function addCrosshair({
     const closestDataPoint = transformedData[idx - 1];
     setPointerData(closestDataPoint);
 
+    priceLabelBackground
+      .attr("x", CHART_WIDTH - MARGIN_RIGHT + 1)
+      .attr("y", mouseY - 10)
+      .attr("class", "price-label-background");
+
     priceLabel
-      .attr("x", CHART_WIDTH - MARGIN_RIGHT + 10)
+      .attr("x", CHART_WIDTH - MARGIN_RIGHT + 5)
       .attr("y", mouseY)
       .text(currHoverPrice.toFixed(2));
 
+    dateLabelBackground
+      .attr("x", mouseX - 45)
+      .attr("y", CHART_HEIGHT - MARGIN_BOTTOM);
+
     dateLabel
-      .attr("x", mouseX)
-      .attr("y", CHART_HEIGHT - MARGIN_BOTTOM + 10)
-      .text(currHoverDate.toLocaleDateString());
+      .attr("x", mouseX - 30)
+      .attr("y", CHART_HEIGHT - MARGIN_BOTTOM + 5)
+      .text(currHoverDate.toLocaleDateString("en-US"));
   });
 
   const verticalLine = svg

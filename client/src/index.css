@@ -26,6 +26,32 @@ body {
     opacity: 0.05;
 }
 
+.price-label-background {
+    width: 90px;
+    height: 20px;
+    opacity: 0.8;
+    fill: rgb(135, 135, 135);
+}
+
+.price-label {
+    fill: white;
+    font-size: 0.8rem;
+}
+
+
+.date-label-background {
+    width: 90px;
+    height: 20px;
+    opacity: 0.8;
+    fill: rgb(135, 135, 135);
+}
+
+.date-label {
+    fill: white;
+    font-size: 0.8rem;
+    background-color: rgb(110, 114, 119);
+}
+
 .cyan-drop-shadow {
     filter: drop-shadow(0 5px 5px #00b7c3);
 }
