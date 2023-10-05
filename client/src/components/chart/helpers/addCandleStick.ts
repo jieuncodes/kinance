@@ -21,9 +21,9 @@ function addCandleStick({
     .append("rect")
     .attr("class", "candle")
     .attr("x", (d) => xScale(new Date(d.date)))
-    .attr("y", (d) => yScale(Math.min(d.open, d.close)))
+    .attr("y", (d) => yScale(Math.max(d.open, d.close)))
     .attr("width", 4)
-    .attr("height", (d) => Math.abs(yScale(d.open) - yScale(d.close)))
+    .attr("height", (d) => yScale(d.open) - yScale(d.close))
     .attr("fill", (d) =>
       d.open > d.close ? "rgb(190,79,92)" : "rgb(63,137,124)",
     );

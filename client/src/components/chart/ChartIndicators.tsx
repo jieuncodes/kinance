@@ -18,8 +18,6 @@ function ChartIndicators({
   currency: Currencies;
   currXDataPoint: D3OHLC | undefined;
 }) {
-  console.log("currXDataPoint", currXDataPoint);
-
   return (
     <IndicatorBox>
       <IndicatorBoxHeader>

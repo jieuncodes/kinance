@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 import { validateEnvVariable } from "../util/helpers";
 import { Cache, Endpoint, ReqInfo } from "../type/marketTypes";
+import Error from "next/error";
 
 export const getMarket = async (req: Request, res: Response): Promise<void> => {
   const requireInfo: ReqInfo = req.query.requireInfo as ReqInfo;
@@ -127,8 +128,10 @@ export const fetchCoinOHLC = async (req: Request, res: Response) => {
       }
     );
     res.json(response.data);
-  } catch (error) {
-    console.error(`Error fetching coin ohlc from Gekco. Error coin id: ${id}`);
-    throw new Error("Internal Server Error");
+  } catch (error: unknown) {
+    console.error(
+      `Error fetching coin ohlc from Gekco. Error coin id: ${id}`,
+      error
+    );
   }
 };

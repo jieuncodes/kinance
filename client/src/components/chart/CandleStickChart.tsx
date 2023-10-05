@@ -28,7 +28,7 @@ function CandleStickChart({
     data: OHLCData,
   } = useQuery<GekcoOHLC | undefined>({
     queryKey: ["OHLC", ticker, currency],
-    queryFn: () => fetchCoinOHLC({ id: coinId, currency, days: 30 }),
+    queryFn: () => fetchCoinOHLC({ id: coinId, currency, days: 90 }),
   });
 
   const chartBoxRef = useRef<HTMLDivElement>(null);
