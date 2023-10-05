@@ -1,4 +1,4 @@
-import { Currencies } from "types/marketTypes";
+import { Currencies, Days } from "types/marketTypes";
 import { ChartContainer } from "styles/chart";
 import CandleStickChart from "./CandleStickChart";
 import { useState } from "react";
@@ -13,11 +13,11 @@ function PriceChart({
   ticker: string | undefined;
   currency: Currencies;
 }) {
-  const [currDay, setCurrDay] = useState<number>(30);
+  const [days, setDays] = useState<Days>(30);
 
   return (
     <>
-      <DateSelector setCurrDay={setCurrDay} />
+      <DateSelector setDays={setDays} />
       <ChartContainer>
         {ticker && coinId && (
           <CandleStickChart

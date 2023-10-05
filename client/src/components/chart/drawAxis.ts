@@ -16,14 +16,13 @@ export const setUpScaleAndAxes = ({
   svg: d3.Selection<SVGSVGElement | null, unknown, null, undefined>;
   transformedData: D3OHLC[];
 }) => {
-  //x and y axis
   const xScale = d3
     .scaleUtc()
     .domain([
-      transformedData[0].date,
-      transformedData[transformedData.length - 1].date,
+      new Date(transformedData[0].date),
+      new Date(transformedData[transformedData.length - 1].date),
     ])
-    .range([MARGIN_LEFT, CHART_WIDTH - MARGIN_RIGHT]);
+    .range([MARGIN_LEFT, CHART_WIDTH - MARGIN_RIGHT - 10]);
 
   const yFormat = d3.format("$,.2f");
 
@@ -33,7 +32,7 @@ export const setUpScaleAndAxes = ({
       d3.min(transformedData, (d) => d.low) as number,
       d3.max(transformedData, (d) => d.high) as number,
     ])
-    .range([CHART_HEIGHT - MARGIN_TOP, MARGIN_TOP]);
+    .range([CHART_HEIGHT - MARGIN_TOP - 10, MARGIN_TOP]);
 
   const xAxis = d3.axisBottom(xScale);
   const yAxis = d3.axisRight(yScale).tickFormat(yFormat);

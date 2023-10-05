@@ -20,10 +20,14 @@ function addCandleStick({
     .enter()
     .append("rect")
     .attr("class", "candle")
-    .attr("x", (d) => xScale(new Date(d.date)))
+    .attr("x", (d) => xScale(new Date(d.date)) - 2.5)
     .attr("y", (d) => yScale(Math.max(d.open, d.close)))
     .attr("width", 4)
-    .attr("height", (d) => yScale(d.open) - yScale(d.close))
+    .attr("height", (d) =>
+      yScale(d.open) - yScale(d.close) >= 0
+        ? yScale(d.open) - yScale(d.close)
+        : yScale(d.close) - yScale(d.open),
+    )
     .attr("fill", (d) =>
       d.open > d.close ? "rgb(190,79,92)" : "rgb(63,137,124)",
     );
@@ -33,8 +37,8 @@ function addCandleStick({
     .enter()
     .append("line")
     .attr("class", "wick")
-    .attr("x1", (d) => xScale(new Date(d.date)) + 2)
-    .attr("x2", (d) => xScale(new Date(d.date)) + 2)
+    .attr("x1", (d) => xScale(new Date(d.date)) - 0.5)
+    .attr("x2", (d) => xScale(new Date(d.date)) - 0.5)
     .attr("y1", (d) => yScale(d.high))
     .attr("y2", (d) => yScale(d.low))
     .attr("stroke", (d) =>

@@ -16,6 +16,10 @@ body {
     background-color: #0E1422;
 }
 
+.invisible {
+    opacity: 0;
+}
+
 .x-grid {
     color: white;
     opacity: 0.05;
@@ -27,17 +31,23 @@ body {
 }
 
 .price-label-background {
-    width: 90px;
+    width: 65px;
     height: 20px;
     opacity: 0.8;
     fill: rgb(135, 135, 135);
+}
+
+.curr-price-label-background {
+    width: 65px;
+    height: 20px;
+    opacity: 0.9;
+    fill: rgb(190, 79, 92);
 }
 
 .price-label {
     fill: white;
     font-size: 0.8rem;
 }
-
 
 .date-label-background {
     width: 90px;

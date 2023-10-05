@@ -93,7 +93,6 @@ export const fetchCoinFromGekco = async (id: string) => {
     console.error(
       `Error fetching coin detail from Gekco. Error coin id: ${id}`
     );
-    throw new Error("Internal Server Error");
   }
 };
 

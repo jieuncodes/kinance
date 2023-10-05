@@ -13,7 +13,7 @@ import {
 
 interface addCrosshairProps {
   svg: Selection<SVGSVGElement | null, unknown, null, undefined>;
-  chartBoxRef: RefObject<HTMLDivElement>;
+  chartRef: RefObject<SVGSVGElement>;
   xScale: d3.ScaleTime<number, number>;
   yScale: d3.ScaleLinear<number, number>;
   transformedData: D3OHLC[];
@@ -27,32 +27,48 @@ interface addCrosshairProps {
 
 function addCrosshair({
   svg,
-  chartBoxRef,
+  chartRef,
   xScale,
   yScale,
   transformedData,
   setPointerData,
 }: addCrosshairProps) {
+  const currOHLC = transformedData[transformedData.length - 1];
+
   const priceLabelBackground = svg
     .append("rect")
-    .attr("class", "price-label-background");
+    .classed("price-label-background", true)
+    .classed("invisible", false);
 
   const priceLabel = svg
     .append("text")
     .attr("alignment-baseline", "middle")
-    .attr("class", "price-label");
+    .classed("price-label", true)
+    .classed("invisible", false);
+
+  const currPriceLabelBackground = svg
+    .append("rect")
+    .classed("price-label-background", true);
+
+  const currPriceLabel = svg
+    .append("text")
+    .attr("alignment-baseline", "middle")
+    .classed("price-label", true);
 
   const dateLabelBackground = svg
     .append("rect")
-    .attr("class", "date-label-background");
+    .classed("date-label-background", true)
+    .classed("invisible", false);
 
   const dateLabel = svg
     .append("text")
-    .attr("class", "date-label")
-    .attr("alignment-baseline", "hanging");
+    .attr("alignment-baseline", "hanging")
+    .classed("date-label", true)
+    .classed("invisible", false);
 
   svg.on("mousemove", function (event) {
     const [mouseX, mouseY] = d3.pointer(event);
+
     const currHoverDate = xScale.invert(mouseX);
     const currHoverPrice = yScale.invert(mouseY);
     const bisectDate = d3.bisector((d: D3OHLC) => d.date).left;
@@ -92,9 +108,36 @@ function addCrosshair({
     .attr("stroke-width", 1)
     .attr("stroke-dasharray", "5,5");
 
-  if (chartBoxRef.current) {
-    chartBoxRef.current.addEventListener("mousemove", (event: MouseEvent) => {
-      const [x, y] = d3.pointer(event, chartBoxRef.current);
+  const currPriceLine = svg
+    .append("line")
+    .attr(
+      "stroke",
+      `${
+        currOHLC.open > currOHLC.close ? "rgb(190,79,92)" : "rgb(63,137,124)"
+      }`,
+    )
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", "1,1");
+
+  if (chartRef.current) {
+    currPriceLine
+      .attr("x1", MARGIN_LEFT)
+      .attr("x2", CHART_WIDTH - MARGIN_RIGHT + 1)
+      .attr("y1", yScale(currOHLC.close))
+      .attr("y2", yScale(currOHLC.close));
+
+    currPriceLabelBackground
+      .attr("x", CHART_WIDTH - MARGIN_RIGHT + 1)
+      .attr("y", yScale(currOHLC.close) - 10)
+      .attr("class", "curr-price-label-background");
+
+    currPriceLabel
+      .attr("x", CHART_WIDTH - MARGIN_RIGHT + 5)
+      .attr("y", yScale(currOHLC.close))
+      .text(currOHLC.close.toFixed(2));
+
+    chartRef.current.addEventListener("mousemove", (event: MouseEvent) => {
+      const [x, y] = d3.pointer(event, chartRef.current);
       if (
         !(
           x > MARGIN_LEFT &&
@@ -110,12 +153,20 @@ function addCrosshair({
         .attr("x2", x)
         .attr("y1", MARGIN_TOP)
         .attr("y2", CHART_HEIGHT - MARGIN_BOTTOM);
-
       horizontalLine
         .attr("x1", MARGIN_LEFT)
         .attr("x2", CHART_WIDTH - MARGIN_RIGHT)
         .attr("y1", y)
         .attr("y2", y);
+    });
+
+    chartRef.current.addEventListener("mouseleave", () => {
+      verticalLine.attr("x1", 0).attr("x2", 0).attr("y1", 0).attr("y2", 0);
+      horizontalLine.attr("x1", 0).attr("x2", 0).attr("y1", 0).attr("y2", 0);
+      priceLabel.text("");
+      priceLabelBackground.classed("invisible", true);
+      dateLabel.text("");
+      dateLabelBackground.classed("invisible", true);
     });
   }
 }

@@ -395,3 +395,5 @@ export interface D3OHLC {
 }
 
 export type GekcoOHLC = [number, number, number, number, number][];
+
+export type Days = 1 | 7 | 14 | 30 | 90 | 180 | 365;

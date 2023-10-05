@@ -1,10 +1,12 @@
+import { Days } from "types/marketTypes";
+
 function DateSelector({
-  setCurrDay,
+  setDays,
 }: {
-  setCurrDay: React.Dispatch<React.SetStateAction<number>>;
+  setDays: React.Dispatch<React.SetStateAction<Days>>;
 }) {
   const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrDay(Number(event.target.accessKey));
+    setDays(30);
   };
 
   return (

@@ -5,7 +5,7 @@ import {
   CandleChartArea,
   ChartSVG,
 } from "styles/chart";
-import { Currencies, D3OHLC, GekcoOHLC } from "types/marketTypes";
+import { Currencies, Days, GekcoOHLC } from "types/marketTypes";
 import ChartIndicators from "./ChartIndicators";
 import useCandleStickChart from "hooks/useCandleStickChart";
 import { useQuery } from "@tanstack/react-query";
@@ -22,13 +22,14 @@ function CandleStickChart({
   ticker: string;
   currency: Currencies;
 }) {
+  const [days, setDays] = useState<Days>(30);
   const {
     isLoading: isOHLCDataLoading,
     error: OHLCDataError,
     data: OHLCData,
   } = useQuery<GekcoOHLC | undefined>({
     queryKey: ["OHLC", ticker, currency],
-    queryFn: () => fetchCoinOHLC({ id: coinId, currency, days: 90 }),
+    queryFn: () => fetchCoinOHLC({ id: coinId, currency, days }),
   });
 
   const chartBoxRef = useRef<HTMLDivElement>(null);

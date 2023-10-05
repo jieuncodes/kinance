@@ -45,7 +45,7 @@ function useCandleStickChart({
     pointerData &&
       addCrosshair({
         svg,
-        chartBoxRef,
+        chartRef,
         xScale,
         yScale,
         transformedData,
