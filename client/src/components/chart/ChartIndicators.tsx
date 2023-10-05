@@ -7,6 +7,7 @@ import {
   OHLCValue,
 } from "styles/chart";
 import { Currencies, D3OHLC } from "types/marketTypes";
+import { priceColor } from "./helpers/chartColorHelper";
 
 function ChartIndicators({
   ticker,
@@ -17,10 +18,7 @@ function ChartIndicators({
   currency: Currencies;
   currXDataPoint: D3OHLC | undefined;
 }) {
-  let indicatorColor =
-    currXDataPoint?.close! > currXDataPoint?.open!
-      ? "brightgain"
-      : "brightloss";
+  console.log("currXDataPoint", currXDataPoint);
 
   return (
     <IndicatorBox>
@@ -37,13 +35,7 @@ function ChartIndicators({
         ].map((ohlc, index) => (
           <OHLCBox key={index}>
             <OHLCLabel>{ohlc[0]}</OHLCLabel>
-            <OHLCValue
-              className={`${
-                currXDataPoint?.close! > currXDataPoint?.open!
-                  ? "text-brightgain"
-                  : "text-brightloss"
-              }`}
-            >
+            <OHLCValue className={`${priceColor(currXDataPoint)}`}>
               {ohlc[1]}
             </OHLCValue>
           </OHLCBox>

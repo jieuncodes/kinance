@@ -1,36 +1,44 @@
-import { ChartContext } from "providers/CoinProvider";
-import { useContext, useEffect, useRef, useState } from "react";
-import { CandleChartArea, ChartSVG } from "styles/chart";
+import { useRef, useState } from "react";
+import {
+  CHART_HEIGHT,
+  CHART_WIDTH,
+  CandleChartArea,
+  ChartSVG,
+} from "styles/chart";
 import { Currencies, D3OHLC, GekcoOHLC } from "types/marketTypes";
 import ChartIndicators from "./ChartIndicators";
 import useCandleStickChart from "hooks/useCandleStickChart";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCoinOHLC } from "services/apiService";
+import { useRecoilValue } from "recoil";
+import { currPointerState } from "atoms";
 
-export const CHART_WIDTH = 928;
-export const CHART_HEIGHT = 600;
-export const MARGIN_BOTTOM = 50;
-export const MARGIN_TOP = 50;
-export const MARGIN_LEFT = 50;
-export const MARGIN_RIGHT = 50;
-
-function CandlestickChart({
+function CandleStickChart({
+  coinId,
   ticker,
   currency,
 }: {
+  coinId: string;
   ticker: string;
   currency: Currencies;
 }) {
-  const { isOHLCDataLoading, OHLCDataError, OHLCData } =
-    useContext(ChartContext);
+  const {
+    isLoading: isOHLCDataLoading,
+    error: OHLCDataError,
+    data: OHLCData,
+  } = useQuery<GekcoOHLC | undefined>({
+    queryKey: ["OHLC", ticker, currency],
+    queryFn: () => fetchCoinOHLC({ id: coinId, currency, days: 30 }),
+  });
 
   const chartBoxRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<SVGSVGElement>(null);
-  const [currXDataPoint, setCurrXDataPoint] = useState<D3OHLC>();
+  const currPointerData = useRecoilValue(currPointerState);
 
   useCandleStickChart({
     chartBoxRef,
     chartRef,
     OHLCData,
-    setCurrXDataPoint,
   });
 
   return (
@@ -38,7 +46,7 @@ function CandlestickChart({
       <ChartIndicators
         ticker={ticker}
         currency={currency}
-        currXDataPoint={currXDataPoint}
+        currXDataPoint={currPointerData}
       />
       <ChartSVG
         ref={chartRef}
@@ -48,4 +56,4 @@ function CandlestickChart({
     </CandleChartArea>
   );
 }
-export default CandlestickChart;
+export default CandleStickChart;

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Currencies } from "types/marketTypes";
-import { CoinProvider } from "providers/CoinProvider";
 import CoinDetails from "./CoinDetail";
 
 function CoinPage() {
@@ -9,11 +8,12 @@ function CoinPage() {
 
   const [currency, setCurrency] = useState<Currencies>("usd");
 
-  return (
-    <CoinProvider coinId={coinId} currency={currency}>
-      <CoinDetails currency={currency} />
-    </CoinProvider>
-  );
+  if (!coinId) {
+    // TODO: fallback UI
+    return null;
+  }
+
+  return <CoinDetails coinId={coinId} currency={currency} />;
 }
 
 export default CoinPage;

@@ -1,13 +1,26 @@
 import PriceChart from "components/chart/PriceChart";
 import CoinSummaryBar from "./CoinSummaryBar";
-import { ChartContext } from "providers/CoinProvider";
-import { useContext, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { Currencies, GekcoCoinDetail } from "types/marketTypes";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCoinDetails } from "services/apiService";
 
-function CoinDetails({ currency }: { currency: Currencies }) {
-  const { isCoinMetaDataLoading, coinMetaDataError, coinMetaData } =
-    useContext(ChartContext);
-
+function CoinDetails({
+  coinId,
+  currency,
+}: {
+  coinId: string;
+  currency: Currencies;
+}) {
+  const {
+    isLoading: isCoinMetaDataLoading,
+    error: coinMetaDataError,
+    data: coinMetaData,
+  } = useQuery({
+    queryKey: ["fetchCoinDetails", coinId],
+    queryFn: () => fetchCoinDetails(coinId),
+  });
   const [coinDetail, setCoinDetail] = useState<GekcoCoinDetail>();
   const [currTickerIdx, setCurrTickerIdx] = useState(0);
 

@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import {
   CHART_HEIGHT,
   CHART_WIDTH,
@@ -5,8 +6,7 @@ import {
   MARGIN_LEFT,
   MARGIN_RIGHT,
   MARGIN_TOP,
-} from "./CandleStickChart";
-import * as d3 from "d3";
+} from "styles/chart";
 
 function addChartGrid({
   svg,

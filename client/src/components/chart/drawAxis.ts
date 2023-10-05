@@ -7,7 +7,7 @@ import {
   MARGIN_LEFT,
   MARGIN_RIGHT,
   MARGIN_TOP,
-} from "./CandleStickChart";
+} from "../../styles/chart";
 
 export const setUpScaleAndAxes = ({
   svg,

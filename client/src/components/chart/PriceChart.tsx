@@ -1,10 +1,11 @@
 import { Currencies } from "types/marketTypes";
 import { ChartContainer } from "styles/chart";
-import CandlestickChart from "./CandleStickChart";
-import { useContext, useState } from "react";
-import { ChartContext } from "providers/CoinProvider";
+import CandleStickChart from "./CandleStickChart";
+import { useState } from "react";
+import DateSelector from "./DateSelector";
 
 function PriceChart({
+  coinId,
   ticker,
   currency,
 }: {
@@ -13,25 +14,18 @@ function PriceChart({
   currency: Currencies;
 }) {
   const [currDay, setCurrDay] = useState<number>(30);
-  const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value);
-    setCurrDay(Number(event.target.accessKey));
-  };
 
   return (
     <>
-      <select
-        name="days"
-        id="days-selector"
-        className="bg-none text-black"
-        onChange={handleDayChange}
-      >
-        <option value="30">30D</option>
-        <option value="60">60D</option>
-      </select>
-
+      <DateSelector setCurrDay={setCurrDay} />
       <ChartContainer>
-        {ticker && <CandlestickChart ticker={ticker} currency={currency} />}
+        {ticker && coinId && (
+          <CandleStickChart
+            coinId={coinId}
+            ticker={ticker}
+            currency={currency}
+          />
+        )}
       </ChartContainer>
     </>
   );
