@@ -11,7 +11,7 @@ export const OHLCBox = tw.div`mr-4`;
 export const OHLCLabel = tw.span`mr-1`;
 export const OHLCValue = tw.span``;
 
-export const CHART_WIDTH = 800;
+export const CHART_WIDTH = 850;
 export const CHART_HEIGHT = 500;
 export const MARGIN_BOTTOM = 0;
 export const MARGIN_TOP = 0;

@@ -48,6 +48,12 @@ function addCrosshair({
 
   const currPriceLabelBackground = svg
     .append("rect")
+    .attr(
+      "fill",
+      `${
+        currOHLC.open > currOHLC.close ? "rgb(190,79,92)" : "rgb(63,137,124)"
+      }`,
+    )
     .classed("price-label-background", true);
 
   const currPriceLabel = svg
